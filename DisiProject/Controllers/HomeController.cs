@@ -11,10 +11,6 @@ namespace DisiProject.Controllers
     {
         public ActionResult Index()
         {
-          
-            //Hola
-            //Hola2
-            //Hola2
             return View();
         }
 
