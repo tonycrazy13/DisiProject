@@ -14,6 +14,7 @@ namespace DisiProject.Controllers
         public ActionResult MttoUsuario()
         {
             ViewBag.titulo = "Mantenimiento de Usuaios";
+            ViewBag.titulo = "Mantenimiento de Usuaios 222"; 
             return View();
         }
 
