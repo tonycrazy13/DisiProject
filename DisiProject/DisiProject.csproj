@@ -185,6 +185,7 @@
     <Compile Include="Common\MyHelpers.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Correo\email.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -327,6 +328,7 @@
     <Content Include="Views\Account\ResetContraseña.cshtml" />
     <Content Include="Views\Shared\_Sesion.cshtml" />
     <Content Include="Views\Account\Registrar.cshtml" />
+    <Content Include="Views\Usuario\MttoUsuario.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PruebaUsuarioDisi.dbml.layout">
