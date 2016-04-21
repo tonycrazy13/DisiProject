@@ -1,0 +1,59 @@
+﻿@model DisiProject.Models.RegisterModel
+@{
+    ViewBag.Title = "Registrar Nuevo";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+   
+</hgroup>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+    <fieldset>
+        <legend>Crea una cuenta nueva</legend>
+
+        <table>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.UserName)
+                </td>
+                <td>
+                    @Html.TextBoxFor(m => m.UserName)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.Password)
+                </td>
+                <td>
+                    @Html.PasswordFor(m => m.Password)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.ConfirmPassword)
+                </td>
+                <td>
+                    @Html.PasswordFor(m => m.ConfirmPassword)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.Email)
+                </td>
+                <td>
+                     @Html.TextBoxFor(m => m.Email)
+                </td>
+            </tr>
+        </table>
+        
+        <input type="submit" value="Registrar" />
+    </fieldset>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

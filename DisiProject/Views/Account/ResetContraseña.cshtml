@@ -1,0 +1,49 @@
+﻿@model DisiProject.Models.ResetPasswordModel
+
+@{
+   ViewBag.Title = "ResetPassword";
+}
+
+<h2>Restaurar Contraseña</h2>
+
+@using (Html.BeginForm())
+{
+   @Html.AntiForgeryToken()
+   @Html.ValidationSummary()
+
+   <fieldset>
+       <legend>Ingrese ambas contraseñas iguales</legend>
+
+       <table>
+           <tr>
+               <td>
+                   @Html.LabelFor(m => m.Password)
+               </td>
+               <td>
+                   @Html.PasswordFor(m => m.Password)
+               </td>
+           </tr>
+           <tr>
+               <td>
+                   @Html.LabelFor(m => m.ConfirmPassword)
+               </td>
+               <td>
+                   @Html.PasswordFor(m => m.ConfirmPassword)
+               </td>
+               <td>
+                   @Html.HiddenFor(m => m.ReturnUser)
+               </td>
+           </tr>
+           <tr>
+               <td></td>
+               <td>
+                   <input type="submit" value="Restablecer" />
+               </td>
+           </tr>
+       </table>
+       
+        
+      
+   </fieldset>
+<h2>@ViewBag.Message</h2>
+}

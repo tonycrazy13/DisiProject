@@ -1,0 +1,71 @@
+﻿
+
+<h2>Ha olvidado su contraseña</h2>
+
+@model DisiProject.Models.CorreoModel
+@{
+    ViewBag.Title = "RecuperarContraseña";
+}
+
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+
+
+    <fieldset>
+        <legend>Ingrese su correo electronico</legend>
+        <table>
+
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.Email)
+                </td>
+                <td>
+                    @Html.TextBoxFor(m => m.Email)
+                </td>
+                <td id="loadingDiv" colspan="2" style="display: none">
+                    <img src="@Url.Content("~/Content/themes/base/images/ajax-loader.gif")" alt="cargando" height="36px" style="">
+                </td>
+
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input id="aceptar" type="submit" value="Enviar"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span style="color: red;">@TempData["Message"]</span>
+                </td>
+            </tr>
+
+        </table>
+
+    </fieldset>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+
+@*funciones jq*@
+
+@*<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#aceptar').click(function(){
+            $('#loadingDiv').show();
+        });
+    });
+</script>
+
+<script>
+    function SomeCallBackEvent(){
+        $('#loadingDiv').hide();
+    };
+</script>*@

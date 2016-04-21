@@ -1,0 +1,108 @@
+﻿@using DisiProject.Common
+@model DisiProject.Models.LoginModel
+
+@{
+    ViewBag.Title = "Iniciar Sesion";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title</h1>
+</hgroup>
+
+<section id="loginForm">
+@using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+{
+  
+  @Html.AntiForgeryToken()
+
+    <fieldset>
+        <legend>Ingrese con su usuario y contraseña</legend>
+        <table>
+            <tr>
+                <td>
+                    @Html.ValidationSummary(true)
+                </td>
+            </tr>
+        </table>
+        <table>
+
+            <tr>
+                <td>
+                    <h5>@Html.LabelFor(m => m.UserName)</h5>
+                </td>
+                <td>
+                    @Html.TextBoxFor(a => a.UserName)
+                </td>
+
+
+            </tr>
+
+
+            <tr>
+                <td>
+                    <h5>@Html.LabelFor(m => m.Password)</h5>
+                </td>
+                <td>
+                    @Html.PasswordFor(a => a.Password)
+                </td>
+
+            </tr>
+            @*<tr>
+                <td>
+                    @Html.CheckBoxFor(m => m.RememberMe)
+                    @Html.LabelFor(m => m.RememberMe, new {@class = "checkbox"})
+                </td>
+            </tr>*@
+            <tr align="center">
+                <td></td>
+                <td >
+                    @Html.Boton("Entrar", "submit", "", "", "")
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td>
+                    <p>¿No tiene una Cuenta? @Html.ActionLink("Cree una.", "Registrar")</p>
+                </td>
+            </tr>
+            <tr>
+            <td></td>
+            <td>
+                
+                <p>@Html.ActionLink("¿Ha Olvidado su Contraseña?", "RecuperarContraseña")</p>
+            </td>
+           
+        </tr>
+        </table>
+
+    </fieldset>
+    
+    
+   
+     
+}
+</section>
+
+@*<section class="social" id="socialLoginForm">
+    <h2>Use another service to log in.</h2>
+    @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
+</section>*@
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+@*<div class="control-group@(Html.ValidationErrorFor(m => m, " error"))">
+    @Html.LabelFor(m => m, new { @class = "control-label" })
+    <div class="controls">
+        @Html.TextBox("",ViewData.TemplateInfo.FormattedModelValue,
+            htmlAttributes)
+        @Html.ValidationMessageFor(m => m, null, new { @class = "help-inline" })
+    </div>
+</div>*@
