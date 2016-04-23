@@ -60,11 +60,11 @@ namespace DisiProject.Models
     //Modelo Login
     public class LoginModel
     {
-        [Required]
+        [Required(ErrorMessage = "Se requiere el usuario para continuar")]
         [Display(Name = "Usuario")]
         public string UserName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Se requiere la contraseña para continuar")]
         [DataType(DataType.Password)]
         [Display(Name = "Contraseña")]
         public string Password { get; set; }
@@ -72,7 +72,7 @@ namespace DisiProject.Models
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
 
-        public string ReturnUrl { get; set; }
+
     }
 
 
@@ -85,7 +85,7 @@ namespace DisiProject.Models
         public string UserName { get; set; }
 
         [Required]
-       // [StringLength(100, ErrorMessage = "El { 0} debe tener al menos {2} caracteres de longitud .", MinimumLength = 8)]
+        // [StringLength(100, ErrorMessage = "El { 0} debe tener al menos {2} caracteres de longitud .", MinimumLength = 8)]
         [DataType(DataType.Password)]
         [Display(Name = "Contraseña")]
         public string Password { get; set; }
@@ -105,8 +105,8 @@ namespace DisiProject.Models
     public class CorreoModel
     {
 
-       
-        [Required]
+
+        [Required(ErrorMessage = "Se requiere un correo valido para continuar")]
         [Display(Name = "Correo Electronico")]
         [RegularExpression(@"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$", ErrorMessage = "Por favor valide su correo electronico")]
         [DataType(DataType.EmailAddress)]
@@ -116,21 +116,21 @@ namespace DisiProject.Models
 
     public class ResetPasswordModel
     {
-        [Required]
+        [Required(ErrorMessage = "Se requiere un correo valido para continuar")]
         [Display(Name = "Nueva Contraseña")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Se requiere un correo valido para continuar")]
         [Display(Name = "Confirmar Contraseña")]
         [DataType(DataType.Password)]
-        [Compare("Password", ErrorMessage = "New password and confirmation does not match.")]
+        [Compare("Password", ErrorMessage = "Las Contraseñas no coinciden por favor rectifique.")]
         public string ConfirmPassword { get; set; }
 
         [Required]
         public string ReturnUser { get; set; }
 
-    
+
     }
 
 

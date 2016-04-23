@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Transactions;
 using System.Web.Mvc;
 using System.Web.Security;
-using DisiProject.Correo;
 using DisiProject.AddModelError;
+using DisiProject.Correo;
+using DisiProject.Datos;
 using DisiProject.Models;
-using DotNetOpenAuth.AspNet;
-using Microsoft.Web.WebPages.OAuth;
-using WebMatrix.WebData;
+using DisiProject.SHA1;
 
 namespace DisiProject.Controllers
 {
@@ -18,6 +14,11 @@ namespace DisiProject.Controllers
     {
         readonly PruebaUsuarioDisiDataContext _db = new PruebaUsuarioDisiDataContext();
         readonly Error _mensajes = new Error();
+        static int _counter;
+
+        static readonly object LockObj = new object();
+        readonly linq _validacion = new linq();
+        readonly sha1 _sha = new sha1();
         //
         // GET: /Account/Login
 
@@ -28,6 +29,7 @@ namespace DisiProject.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -41,39 +43,115 @@ namespace DisiProject.Controllers
 
         public ActionResult Login(LoginModel u, string returnUrl)
         {
-
-
             if (ModelState.IsValid)
             {
                 try
                 {
-                     using (_db)
-                     {
-                         //valida x usuario o por correo
-                         var v = _db.Usuarios.FirstOrDefault(a => a.UsuarioEmpleado.Equals(u.UserName) && a.Contraseña.Equals(u.Password));
-                         if (v != null)
-                         {
-                             Session["LogedUserID"] = v.UserId.ToString();
-                             Session["LogedUserFullName"] = v.NombreEmpleado;
-                             FormsAuthentication.SetAuthCookie(u.UserName, false);
-                             if (!string.IsNullOrEmpty(returnUrl))
-                             {
-                                 return Redirect(returnUrl);
-                             }
-                             else
-                             {
-                                 return RedirectToAction("Index", "Home");
-                             }
-                         }
-                     } 
+                    using (_db)
+                    {
+
+                        //revisamos si tiene una pass generica para enviarlo a cambio de contraseña
+
+
+                        if (_validacion.ValidaAsociados(u.UserName, u.Password))
+                        {
+                            _counter = 0;
+                            return RedirectToAction("ResetContraseña", "Account", new { rt = u.UserName });
+                        }
+
+                        //si no
+                        //encriptamos la contraseña en sha1
+                        var encriptado = _sha.GetSha1(u.Password);
+
+                        //validamos x usuario y contraseña encriptada
+                        if (_validacion.ValidaAsociados(u.UserName, encriptado))
+                        {
+                            //revisamos que la cuenta no este bloqueada
+                            var sesion = _validacion.Sesion(u.UserName);
+
+                            //si no esta bloqueada accesa
+                            if (sesion != 1)
+                            {
+
+                                var v = _validacion.Validacion(u.UserName, encriptado);
+                                Session.Add("UserID", v.UserId.ToString());
+                                Session.Add("UserFullName", v.NombreEmpleado);
+                                FormsAuthentication.SetAuthCookie(u.UserName, false);
+                                if (!string.IsNullOrEmpty(returnUrl))
+                                {
+                                    //si entra a la sesion reiniciamos contador
+                                    _counter = 0;
+                                    return Redirect(returnUrl);
+                                }
+                                _counter = 0;
+                                return RedirectToAction("Index", "Home");
+                            }
+
+                            //si esta bloqueada regresamos a la vista y mandamos mensaje de notificacion
+                            else
+                            {
+
+                                ViewBag.Error = _mensajes.CuentBloqueada(_counter);
+
+
+                            }
+
+
+                        }
+                        //validacion mensaje
+                        ViewBag.Error = _mensajes.AlertaContraseña();
+
+
+                        ///////////
+                        /// Intentos restantes
+                        /// 
+
+                        var bloqueado = _validacion.Sesion(u.UserName);
+                        if (bloqueado != 1)
+                        {
+                            //revisamos si existe el usuario para los intentos restantes antes de bloquear usuario
+
+                            if (_validacion.ValidaUsuario(u.UserName))
+                            {
+                                //tiliza el bloqueo de exclusión mutua de un objeto e iniciamos contador
+                                lock (LockObj)
+                                {
+                                    _counter++;
+                                }
+
+                                //si los intentos llegan al limite mandamos bandera para bloquear cuenta
+                                if (_counter == 3)
+                                {
+                                    _validacion.UpdateRegistro(u.UserName);
+                                    ViewBag.Error = _mensajes.CuentBloqueada(_counter);
+                                }
+                                else
+                                {
+
+                                    ViewBag.Error = null;
+                                    ViewBag.Info = _mensajes.CredencialesInvalidas(_counter);
+                                }
+
+
+                            }
+                        }
+                        else
+                        {
+                            ViewBag.Error = _mensajes.CuentBloqueada(_counter);
+
+                        }
+                    }
+
                 }
                 catch (Exception ex)
                 {
-                    ModelState.AddModelError(_mensajes.Key(), ex.ToString());
+                    ViewBag.Error = ex.ToString();
                 }
             }
-            ModelState.AddModelError(_mensajes.Key(), _mensajes.AlertaContraseña());
-            return View(u);
+
+            ModelState.Clear();
+
+            return View();
         }
 
 
@@ -110,47 +188,50 @@ namespace DisiProject.Controllers
 
             if (ModelState.IsValid)
             {
-                using (_db)
-                {
-                    var user = (from u in _db.Usuarios
-                                where u.Correo== model.Email
-                                select u.UsuarioEmpleado ).FirstOrDefault();
-                    
-                    if (user != null)
-                    {
-                     
-                       
-                        //insertamos o actualizamos la fecha de control 
-                        var fecha = DateTime.Now.ToString(_mensajes.Fecha());
-                        var registro = _db.Usuarios.SingleOrDefault(w => w.Correo == model.Email);
-                        registro.FechaContraseña = fecha;
-                        _db.SubmitChanges();
-                        
-                        // Generar el enlace HTML enviado por correo electrónico
 
-                        string resetLink = UrlEmail(user);
-                       
-                        // Intento de enviar el correo electrónico
-                        try
+                try
+                {
+                    using (_db)
+                    {
+                        var user = _validacion.UsuarioEmail(model.Email);
+
+                        if (user != null)
                         {
+
+                            //insertamos o actualizamos la fecha de control 
+                            _validacion.ActualizarFecha(model.Email);
+
+                            // Generar el enlace HTML enviado por correo electrónico
+
+                            string resetLink = UrlEmail(user);
+
+                            // Intento de enviar el correo electrónico
+
                             var envio = new email();
                             envio.Send(resetLink, model.Email);
-                            ModelState.AddModelError(_mensajes.Key(), _mensajes.AlertaCorreoEnviado());
+                            ViewBag.Successful = _mensajes.AlertaCorreoEnviado();
+
+
                         }
-                        catch (Exception e)
+                        else // correo no encontrado 
                         {
-                            ModelState.AddModelError(_mensajes.Key(), _mensajes.AlertaCorreo() + e.Message);
+
+                            ViewBag.Error = _mensajes.AlertaCorreoErroneo();
+
                         }
-                    }
-                    else // correo no encontrado 
-                    {
-                        ModelState.AddModelError(_mensajes.Key(), _mensajes.AlertaCorreoErroneo());
                     }
                 }
+                catch (Exception e)
+                {
+                    ViewBag.Error = _mensajes.AlertaCorreo() + e.Message;
+                }
+
             }
 
-            return View(model);
-            
+            ModelState.Clear();
+
+            return View();
+
         }
 
 
@@ -158,7 +239,7 @@ namespace DisiProject.Controllers
         [AllowAnonymous]
         public ActionResult ResetContraseña(string rt)
         {
-            ResetPasswordModel model = new ResetPasswordModel {ReturnUser = rt};
+            ResetPasswordModel model = new ResetPasswordModel { ReturnUser = rt };
             return View(model);
         }
 
@@ -171,48 +252,37 @@ namespace DisiProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                
+
                 using (_db)
                 {
-                    var registro = _db.Usuarios.SingleOrDefault(w => w.UsuarioEmpleado == model.ReturnUser);
+                    var registro = _validacion.ExisteUsuario(model.ReturnUser);
+
 
                     if (registro != null)
                     {
-                        var date = (from u in _db.Usuarios
-                                    where u.UsuarioEmpleado == model.ReturnUser
-                                    select u.FechaContraseña).FirstOrDefault();
+                        //var date = _validacion.Date(model.ReturnUser);
+                        var email = _validacion.Email(model.ReturnUser);
 
-                        var email = (from u in _db.Usuarios
-                                    where u.UsuarioEmpleado == model.ReturnUser
-                                    select u.Correo).FirstOrDefault();
 
-                        if (DateTime.Now.ToString(_mensajes.Fecha()) == date)
-                        {
-                            registro.FechaContraseña = DateTime.Now.ToString(_mensajes.Fecha());
-                            registro.Contraseña = model.ConfirmPassword;
-                            _db.SubmitChanges();
 
-                            //envio correo de notificacion
-                            var envio = new email();
-                            envio.SendPost(model.ReturnUser,email,model.ConfirmPassword);
-                            //ViewBag.Message = "Se ha cambiado correctamente";
+                        var encriptado = _sha.GetSha1(model.ConfirmPassword);
+                        _validacion.ActualizarfechaUsuario(registro, encriptado);
 
-                            ModelState.AddModelError(_mensajes.Key(), _mensajes.AlertaCorreoEnviado());
-                        }
-                        else
-                        {
-                            //ViewBag.Message = "No se ha cambiado la nueva contraseña"; 
-                            ModelState.AddModelError(_mensajes.Key(), _mensajes.AlertaCorreoError());
-                        }
+                        //envio correo de notificacion
+                        var envio = new email();
+
+                        var returnUrl = this.returnUrl();
+                        envio.SendPost(model.ReturnUser, email, model.ConfirmPassword, returnUrl);
+
+                        ViewBag.Successful = _mensajes.AlertaCorreoEnviado();
 
                     }
                     else
                     {
-                        //ViewBag.Message = "Esta Url ya no es valida favor de volver a solicitar correo de recuperacion";
 
-                        ModelState.AddModelError(_mensajes.Key(), _mensajes.AlertaUrlError());
+                        ViewBag.Error = _mensajes.AlertaUrlError();
                     }
-                 
+
                 }
             }
             return View(model);
@@ -222,7 +292,7 @@ namespace DisiProject.Controllers
         //
         // GET: /Account/Register
 
-        
+
         [AllowAnonymous]
         public ActionResult Registrar()
         {
@@ -239,14 +309,14 @@ namespace DisiProject.Controllers
         {
             if (ModelState.IsValid)
             {
-               
+
             }
 
-          
+
             return View(model);
         }
 
-       
+
 
         public string UrlEmail(string user)
         {
@@ -254,6 +324,20 @@ namespace DisiProject.Controllers
                           + Url.Action("ResetContraseña", "Account", new { rt = user }, "http")
                           + "'>Restablezca su Contraseña</a>";
         }
-           
+
+        public string returnUrl()
+        {
+
+            return "<a href='"
+                          + Url.Action("Login", "Account", "http")
+                          + "'>Ir a la Pagina Principal</a>";
+
+        }
+
+
+        ////
+
+
+
     }
 }

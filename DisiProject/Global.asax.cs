@@ -17,7 +17,7 @@ namespace DisiProject
 
     public class MvcApplication : System.Web.HttpApplication
     {
-        private static SimpleMembershipInitializer _initializer;
+        //private static SimpleMembershipInitializer _initializer;
         private static object _initializerLock = new object();
         private static bool _isInitialized;
         //protected void Application_Start()
@@ -43,8 +43,7 @@ namespace DisiProject
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-
-            LazyInitializer.EnsureInitialized(ref _initializer, ref _isInitialized, ref _initializerLock);
+//LazyInitializer.EnsureInitialized(ref _initializer, ref _isInitialized, ref _initializerLock);
         }
         void Application_End(object sender, EventArgs e)
         {
@@ -74,16 +73,6 @@ namespace DisiProject
 
         }
 
-        public class SimpleMembershipInitializer
-        {
-            public SimpleMembershipInitializer()
-            {
-                using (var context = new UsersContext())
-                    context.UserProfiles.Find(1);
-
-                if (!WebSecurity.Initialized)
-                    WebSecurity.InitializeDatabaseConnection("DisiUserConnectionString", "UserProfile", "UserId", "Username", autoCreateTables: true);
-            }
-        }
+       
         }
     }

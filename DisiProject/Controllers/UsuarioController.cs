@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace DisiProject.Controllers
 {
+    [Authorize]
     public class UsuarioController : Controller
     {
         //

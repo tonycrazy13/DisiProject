@@ -4,9 +4,10 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>@ViewBag.Title</title>
+    <title>DisiProject - @ViewBag.Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="@Styles.Url("~/content/css")" rel="stylesheet"/>
+
    
     @* favicons and touch icons go here *@
 </head>
@@ -17,23 +18,33 @@
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="navbar-inner">
                 <div class="container">
-                    <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="brand" href="#">DisiProject</a>
-                    <div class="nav-collapse collapse">
-                        <ul class="nav navbar-nav navbar-left">
-                            <li>@Html.ActionLink("Principal", "Index", "Home")</li>
-                            <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
-                            <li>@Html.ActionLink("Contactanos", "Contact", "Home")</li>
-                            <li>@Html.ActionLink("Usuarios", "MttoUsuario", "Usuario")</li>
-                        </ul>
-                        <ul class="nav pull-right">
-                            @Html.Partial("_LoginPartial")
-                        </ul>
-                    </div>
+                     @if (@Session["UserFullName"] != null)
+                    {
+
+                        <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                         
+                    }
+                    <a class="brand " href="#">DisiProject</a>
+
+                    @* @Html.Partial("_Sesion")*@
+
+                    @if (@Session["UserFullName"] != null)
+                    {
+                        <div class="nav-collapse collapse">
+                            <ul class="nav navbar-nav navbar-left">
+                                @Html.Partial("_MenuSistema")
+                            </ul>
+                            <ul class="nav pull-right">
+                                @Html.Partial("_LoginPartial")
+                            </ul>
+                        </div>
+                    }
+
+
                 </div>
             </div>
         </div>
@@ -53,17 +64,15 @@
 
 
 <footer class="footer">
-      <div class="container">
+    <div class="container">
         <p class="text-muted">Prueba v1.1</p>
-      </div>
-    </footer>
+    </div>
+</footer>
+
 @Scripts.Render("~/js")
-@Scripts.Render("~/content/css")
-@Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/custom")
-@Scripts.Render("~/bundles/jqueryui")
-@Scripts.Render("~/bundles/Grid/js")
-@RenderSection("scripts", required: false)
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+
 
 </body>
 </html>
