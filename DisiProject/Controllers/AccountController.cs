@@ -49,7 +49,7 @@ namespace DisiProject.Controllers
                 {
                     using (_db)
                     {
-
+                        //prueba
                         //revisamos si tiene una pass generica para enviarlo a cambio de contraseña
 
 
