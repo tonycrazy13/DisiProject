@@ -41,7 +41,7 @@ namespace DisiProject.Correo
 
 
         //envio de correo Confirmacion
-        public void SendPost(string user, string email, string pass)
+        public void SendPost(string user, string email, string pass, string url)
         {
 
             MailMessage mmsg = new MailMessage();
@@ -50,12 +50,13 @@ namespace DisiProject.Correo
             mmsg.Subject = "Contraseña Reestablecida";
             mmsg.SubjectEncoding = Encoding.UTF8;
             var htmlBody = "Prueba de Email Restableciendo Contraseña";
-            htmlBody += "\nSu nueva contraseña es: " + pass;
+            htmlBody += "\n\nSu nueva contraseña es: " + pass;
             //htmlBody += "\n NOMBRE DE CONTACTO:" + form.nombre;
             //htmlBody += "\n TELEFONO FIJO:" + form.tel;
             //htmlBody += "\n TELEFONO CELULAR:" + form.celular;
             //htmlBody += "\n \n" + form.comentarios;
-            htmlBody += "\nSu usuario es: " + user;
+            htmlBody += "\n\nSu usuario es: " + user;
+            htmlBody += "\n \n" + url;
             mmsg.Body = htmlBody;
 
             mmsg.BodyEncoding = Encoding.UTF8;
@@ -70,10 +71,10 @@ namespace DisiProject.Correo
             };
             cliente.Send(mmsg);
 
-           
+
 
         }
 
-             
+
     }
 }

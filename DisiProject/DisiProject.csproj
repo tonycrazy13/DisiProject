@@ -187,6 +187,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Correo\email.cs" />
+    <Compile Include="Datos\linq.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -198,6 +199,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PruebaUsuarioDisi.dbml</DependentUpon>
     </Compile>
+    <Compile Include="SHA1\sha1.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\DisiUser.mdf" />
@@ -209,6 +211,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\themes\base\images\ajax-loader.gif" />
+    <Content Include="Content\themes\base\images\regresar.png" />
     <Content Include="Content\themes\base\images\sesion.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -329,6 +332,7 @@
     <Content Include="Views\Shared\_Sesion.cshtml" />
     <Content Include="Views\Account\Registrar.cshtml" />
     <Content Include="Views\Usuario\MttoUsuario.cshtml" />
+    <Content Include="Views\Shared\_MenuSistema.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PruebaUsuarioDisi.dbml.layout">

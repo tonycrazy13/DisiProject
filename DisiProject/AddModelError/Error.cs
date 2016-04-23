@@ -30,6 +30,11 @@ namespace DisiProject.AddModelError
             return "Se ha enviado un correo a su bandeja de entrada, por favor revise";
         }
 
+        public string AlertaCorreoConfirmadoEnviado()
+        {
+            return "La Contraseña ha sido cambiada, por su seguridad hemos enviado un correo con la nueva contraseña!!!";
+        }
+
 
         public string AlertaCorreoModificado()
         {
@@ -52,14 +57,26 @@ namespace DisiProject.AddModelError
             return "1";
         }
 
+        public string CuentBloqueada(int intentos)
+        {
+            return "La cuenta ha sido bloqueada!! Por favor restaure su cuenta";
+        }
+
         public string Fecha()
         {
             return "MM/dd/yyyy";
         }
-            
-      
 
-        
+
+        public string CredencialesInvalidas(int intentos)
+        {
+            return "La contraseña no es valida, por favor rectifique, Numero de Intentos: " + intentos;
+
+        }
+
+
+
+
 
 
     }

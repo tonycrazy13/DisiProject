@@ -92,6 +92,10 @@ namespace DisiProject
 		
 		private string _FechaContraseña;
 		
+		private System.Nullable<int> _Bloqueado;
+		
+		private string _FechaBloqueado;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -108,6 +112,10 @@ namespace DisiProject
     partial void OnCorreoChanged();
     partial void OnFechaContraseñaChanging(string value);
     partial void OnFechaContraseñaChanged();
+    partial void OnBloqueadoChanging(System.Nullable<int> value);
+    partial void OnBloqueadoChanged();
+    partial void OnFechaBloqueadoChanging(string value);
+    partial void OnFechaBloqueadoChanged();
     #endregion
 		
 		public Usuario()
@@ -175,7 +183,7 @@ namespace DisiProject
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Contraseña", DbType="VarChar(20)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Contraseña", DbType="VarChar(MAX)")]
 		public string Contraseña
 		{
 			get
@@ -231,6 +239,46 @@ namespace DisiProject
 					this._FechaContraseña = value;
 					this.SendPropertyChanged("FechaContraseña");
 					this.OnFechaContraseñaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Bloqueado", DbType="Int")]
+		public System.Nullable<int> Bloqueado
+		{
+			get
+			{
+				return this._Bloqueado;
+			}
+			set
+			{
+				if ((this._Bloqueado != value))
+				{
+					this.OnBloqueadoChanging(value);
+					this.SendPropertyChanging();
+					this._Bloqueado = value;
+					this.SendPropertyChanged("Bloqueado");
+					this.OnBloqueadoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaBloqueado", DbType="NVarChar(50)")]
+		public string FechaBloqueado
+		{
+			get
+			{
+				return this._FechaBloqueado;
+			}
+			set
+			{
+				if ((this._FechaBloqueado != value))
+				{
+					this.OnFechaBloqueadoChanging(value);
+					this.SendPropertyChanging();
+					this._FechaBloqueado = value;
+					this.SendPropertyChanged("FechaBloqueado");
+					this.OnFechaBloqueadoChanged();
 				}
 			}
 		}

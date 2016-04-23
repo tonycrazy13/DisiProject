@@ -5,9 +5,11 @@
       <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="UsuarioEmpleado" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="NombreEmpleado" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
-      <Column Name="Contraseña" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Contraseña" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="Correo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="FechaContraseña" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Bloqueado" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FechaBloqueado" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

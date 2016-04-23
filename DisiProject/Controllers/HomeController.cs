@@ -11,13 +11,19 @@ namespace DisiProject.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            if (Session["UserFullName"] != null)
+            {
+                var sesion = Convert.ToString(Session["UserFullName"]);
+                ViewBag.Sesion = sesion;
+                return View();
+            }
+            return RedirectToAction("LogOff", "Account");
         }
 
         public ActionResult About()
         {
             ViewBag.Message = "Your app description page.";
-             
+
             return View();
         }
 
