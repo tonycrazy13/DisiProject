@@ -15,7 +15,7 @@ namespace DisiProject.Datos
         {
 
             string searchForThis = "@";
-            var compara = username.IndexOf(searchForThis, StringComparison.Ordinal);
+            var compara = username.IndexOf(searchForThis);
             if (compara == -1)
             {
                 var validacion = _db.Usuarios.FirstOrDefault(a => a.UsuarioEmpleado.Equals(username) && a.Contraseña.Equals(password));
