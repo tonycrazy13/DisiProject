@@ -12,65 +12,69 @@
 
 <section id="loginForm">
 
- 
-@Html.ValidationSummary(true)
+  
+
+    @using (Html.BeginForm(new {ReturnUrl = ViewBag.ReturnUrl}))
+    {
+
+          @Html.ValidationSummary(true)
 
               @Html.AntiForgeryToken()
 
-    <fieldset>
-        <legend>Ingrese con su usuario y contraseña</legend>
-       
-            @if (ViewBag.Error != null)
-        {
+        <fieldset>
+            <legend>Ingrese con su usuario y contraseña</legend>
 
-            <div class="alert alert-danger">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                <strong>Error!</strong> @ViewBag.Error
-            </div>
-        }
+            @if (ViewBag.Error != null)
+            {
+
+                <div class="alert alert-danger">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>Error!</strong> @ViewBag.Error
+                </div>
+            }
 
             @if (ViewBag.Info != null)
-        {
-            <div class="alert alert-info">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            {
+                <div class="alert alert-info">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                     <strong>Alerta!</strong> @ViewBag.Info
                 </div>
-        }
+            }
 
-        <div class="form-group">
+            <div class="form-group">
                 @Html.LabelFor(m => m.UserName, new {@class = "control-label"})
-         <div class="">
+                <div class="">
                     @Html.TextBoxFor(m => m.UserName, new {@class = "form-control"})
-            <p class="help-block">@Html.ValidationMessageFor(m => m.UserName)</p>
-         </div>
-      </div>
-
-        <div class="form-group">
-            @Html.LabelFor(m => m.Password, new {@class = "control-label"})
-                <div class="">@Html.PasswordFor(m => m.Password, new {@class = "form-control"})
-                <p class="help-block">@Html.ValidationMessageFor(m => m.Password)</p>
-            </div>
-        </div>
-
-
-        <div class="form-group">
-                    <div class="">
-                        <button class="btn btn-primary">Accesar
-                            <span class="glyphicon glyphicon-log-in"></span></button>
-                    </div>
+                    <p class="help-block">@Html.ValidationMessageFor(m => m.UserName)</p>
                 </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Password, new {@class = "control-label"})
+                <div class="">@Html.PasswordFor(m => m.Password, new {@class = "form-control"})
+                    <p class="help-block">@Html.ValidationMessageFor(m => m.Password)</p>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="">
+                    <button class="btn btn-primary">Accesar
+                        <span class="glyphicon glyphicon-log-in"></span></button>
+                </div>
+            </div>
 
               <div class="form-group">
                 <div class="">
                     <p>@Html.ActionLink("Recuperar contraseña olvidada o bloqueada", "RecuperarContraseña")</p>
                 </div>
-
+            
 
             </div>
 
 
 
-        <table>
+            <table>
 
 
                 @*<tr>
@@ -96,11 +100,11 @@
         </tr>*@
             </table>
 
-    </fieldset>
-    
-    
-   
-     
-}
+        </fieldset>
+
+
+
+
+    }
 </section>
 
