@@ -1,0 +1,166 @@
+﻿@using DisiProject.Common
+@model DisiProject.Models.CrearClientesModel
+
+@{
+    ViewBag.Title = "CrearClientes";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title</h1>
+</hgroup>
+
+<section id="crearClientesForm">
+@using (Html.BeginForm("index"))
+{
+  
+  @Html.AntiForgeryToken()
+
+    <fieldset>
+        <legend>Ingrese los datos del cliente</legend>
+        <table>
+            <tr>
+                <td>
+                    @Html.ValidationSummary(true)
+                </td>
+            </tr>
+        </table>
+        <table>
+
+            <tr>
+                <td>
+                    <h5>@Html.LabelFor(m => m.NombreComercial)</h5>
+                </td>
+                <td>
+                    @Html.TextBoxFor(a => a.NombreComercial)
+                </td>
+
+
+            </tr>
+
+
+            <tr>
+                <td>
+                    <h5>@Html.LabelFor(m => m.TelPrincipal)</h5>
+                </td>
+                <td>
+                    @Html.PasswordFor(a => a.TelPrincipal)
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    <h5>@Html.LabelFor(m => m.RazonSocial)</h5>
+                </td>
+                <td>
+                    @Html.PasswordFor(a => a.RazonSocial)
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    <h5>@Html.LabelFor(m => m.RFC)</h5>
+                </td>
+                <td>
+                    @Html.PasswordFor(a => a.RFC)
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    <h5>@Html.LabelFor(m => m.RegProveedor)</h5>
+                </td>
+                <td>
+                    @Html.PasswordFor(a => a.RegProveedor)
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    <h5>@Html.LabelFor(m => m.CorreoPrincipal)</h5>
+                </td>
+                <td>
+                    @Html.PasswordFor(a => a.CorreoPrincipal)
+                </td>
+
+            </tr>
+            @*<tr>
+                <td>
+                    @Html.CheckBoxFor(m => m.RememberMe)
+                    @Html.LabelFor(m => m.RememberMe, new {@class = "checkbox"})
+                </td>
+            </tr>*@
+
+
+            <tr>
+                <td>
+                    <h5>@Html.LabelFor(m => m.EdosClientes)</h5>
+                </td>
+                <td>
+                     <fieldset>
+                          @Html.DropDownListFor(x => x.CurrentItem, Model.EdosClientes)
+                     </fieldset>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h5>@Html.LabelFor(m => m.OrigenesCliente)</h5>
+                </td>
+                <td>
+                     <fieldset>
+                          @Html.DropDownListFor(x => x.CurrentItem, Model.OrigenesCliente)
+                     </fieldset>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h5>@Html.LabelFor(m => m.TiposPersona)</h5>
+                </td>
+                <td>
+                     @Html.DropDownListFor(x => x.TiposPersona, new[] {
+
+                    new SelectListItem() {Text = "Yes, I'll be there",
+
+                    Value = bool.TrueString},
+
+                    new SelectListItem() {Text = "No, I can't come",
+
+                    Value = bool.FalseString}
+
+                    }, "Choose an option")
+                </td>
+            </tr>
+
+            <tr align="center">
+                <td></td>
+                <td >
+                    @Html.Boton("Entrar", "submit", "", "", "")
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td>
+                    <p>¿No tiene una Cuenta? @Html.ActionLink("Cree una.", "Registrar")</p>
+                </td>
+            </tr>
+            <tr>
+            <td></td>
+            <td>
+                
+                <p>@Html.ActionLink("¿Ha Olvidado su Contraseña?", "RecuperarContraseña")</p>
+            </td>
+           
+        </tr>
+        </table>
+
+    </fieldset>
+    
+    
+   
+     
+}
+</section>
