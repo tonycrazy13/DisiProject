@@ -5,9 +5,9 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 
-namespace DisiProject.SHA1
+namespace DisiProject.Util
 {
-    public class sha1
+    public class Sha1
     {
         public string GetSha1(string str)
         {

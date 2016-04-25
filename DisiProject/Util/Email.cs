@@ -2,9 +2,9 @@
 using System.Net.Mail;
 using System.Text;
 
-namespace DisiProject.Correo
+namespace DisiProject.Util
 {
-    public class email
+    public class Email
     {
         //envio de correo Peticion
         public void Send(string resetLink, string email)

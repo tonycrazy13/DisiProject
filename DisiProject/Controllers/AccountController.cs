@@ -2,10 +2,9 @@
 using System.Web.Mvc;
 using System.Web.Security;
 using DisiProject.AddModelError;
-using DisiProject.Correo;
 using DisiProject.Datos;
 using DisiProject.Models;
-using DisiProject.SHA1;
+using DisiProject.Util;
 
 namespace DisiProject.Controllers
 {
@@ -18,7 +17,7 @@ namespace DisiProject.Controllers
 
         static readonly object LockObj = new object();
         readonly linq _validacion = new linq();
-        readonly sha1 _sha = new sha1();
+        readonly Sha1 _sha = new Sha1();
         //
         // GET: /Account/Login
 
@@ -208,7 +207,7 @@ namespace DisiProject.Controllers
 
                             // Intento de enviar el correo electrónico
 
-                            var envio = new email();
+                            var envio = new Email();
                             envio.Send(resetLink, model.Email);
                             ViewBag.Successful = _mensajes.AlertaCorreoEnviado();
 
@@ -270,7 +269,7 @@ namespace DisiProject.Controllers
                         _validacion.ActualizarfechaUsuario(registro, encriptado);
 
                         //envio correo de notificacion
-                        var envio = new email();
+                        var envio = new Email();
 
                         var returnUrl = this.returnUrl();
                         envio.SendPost(model.ReturnUser, email, model.ConfirmPassword, returnUrl);
