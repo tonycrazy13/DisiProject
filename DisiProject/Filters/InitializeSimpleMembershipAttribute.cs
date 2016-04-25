@@ -25,11 +25,11 @@ namespace DisiProject.Filters
         {
             public SimpleMembershipInitializer()
             {
-                Database.SetInitializer<UsersContext>(null);
+                Database.SetInitializer<DisiContext>(null);
 
                 try
                 {
-                    using (var context = new UsersContext())
+                    using (var context = new DisiContext())
                     {
                         if (!context.Database.Exists())
                         {

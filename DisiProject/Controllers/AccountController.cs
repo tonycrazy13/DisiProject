@@ -12,7 +12,7 @@ namespace DisiProject.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        readonly PruebaUsuarioDisiDataContext _db = new PruebaUsuarioDisiDataContext();
+        readonly DisiContext _db = new DisiContext();
         readonly Error _mensajes = new Error();
         static int _counter;
 
@@ -70,12 +70,12 @@ namespace DisiProject.Controllers
                             var sesion = _validacion.Sesion(u.UserName);
 
                             //si no esta bloqueada accesa
-                            if (sesion != 1)
+                            if (sesion == false)
                             {
 
                                 var v = _validacion.Validacion(u.UserName, encriptado);
-                                Session.Add("UserID", v.UserId.ToString());
-                                Session.Add("UserFullName", v.NombreEmpleado);
+                                Session.Add("UserID", v.id.ToString());
+                                Session.Add("UserFullName", v.empleado);
                                 FormsAuthentication.SetAuthCookie(u.UserName, false);
                                 if (!string.IsNullOrEmpty(returnUrl))
                                 {
@@ -107,7 +107,7 @@ namespace DisiProject.Controllers
                         /// 
 
                         var bloqueado = _validacion.Sesion(u.UserName);
-                        if (bloqueado != 1)
+                        if (bloqueado == false)
                         {
                             //revisamos si existe el usuario para los intentos restantes antes de bloquear usuario
 
@@ -145,6 +145,7 @@ namespace DisiProject.Controllers
                 }
                 catch (Exception ex)
                 {
+                    Console.WriteLine(ex.ToString());
                     ViewBag.Error = ex.ToString();
                 }
             }
