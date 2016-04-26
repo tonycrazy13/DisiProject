@@ -1,0 +1,100 @@
+﻿@model IEnumerable<DisiProject.Models.Cliente>
+@{
+    ViewBag.Title = "Index";
+}
+
+@section nav {
+    @Html.Partial("_AdminMenuPartial")
+}
+
+
+    <h2>Clients</h2>
+
+    <p>
+        @Html.ActionLink("Crear Nuevo", "Crear")
+    </p>
+
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NombreComercial)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RegProveedor)
+        </th>
+        <th>
+            Edo. Cliente
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TelPrincipal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CorreoPrincipal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RazonSocial)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RFC)
+        </th>
+        <th>
+            Edo. Cliente
+        </th>
+        <th>
+            Origen
+        </th>
+        <th>
+            Tipo persona
+        </th>
+        <th>Contactos</th>
+        <th>Direcciones</th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NombreComercial)
+        </td>
+         <td>
+            @Html.DisplayFor(modelItem => item.RegProveedor)
+        </td>
+        <td>
+            
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TelPrincipal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CorreoPrincipal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RazonSocial)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RFC)
+        </td>
+        <td>
+            @Html.DropDownListFor(modelItem => item.IdEstadoCliente, (IEnumerable<SelectListItem>)null, "Seleccione Edo. Civil", new {style = "width:190px", disabled = "disabled"}) 
+        </td>
+        <td>
+            @Html.DropDownListFor(modelItem => item.IdOrigen, (IEnumerable<SelectListItem>)null, "Seleccione origen del cliente", new {style = "width:190px", disabled = "disabled"})
+        </td>
+         <td>
+            @Html.DropDownListFor(modelItem => item.IdTipoPersona, (IEnumerable<SelectListItem>)null, "Seleccione tipo persona", new {style = "width:190px", disabled = "disabled"})
+        </td>
+        <td>
+            @Html.ActionLink("Contactos", "Index", "Contactos", new { id = item.IdCliente }, new { })
+        </td>
+        <td>
+            @Html.ActionLink("Direcciones", "Index", "Direcciones", new { id = item.IdCliente }, new { })
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Editar", new { id=item.IdCliente })
+            @Html.ActionLink("Detalles", "Detalles", new { id=item.IdCliente })
+            @Html.ActionLink("Borrar", "Borrar", new { id=item.IdCliente })
+        </td>
+    </tr>
+}
+
+</table>

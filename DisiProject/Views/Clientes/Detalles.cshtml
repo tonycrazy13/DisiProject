@@ -1,0 +1,70 @@
+﻿@model DisiProject.Models.Cliente
+
+@{
+    ViewBag.Title = "Detalles";
+}
+
+@section nav {
+    @Html.Partial("_AdminMenuPartial")
+}
+
+<h2>Detalles</h2>
+
+<fieldset>
+    <legend></legend>
+
+   <div class="editor-label">
+            @Html.DisplayNameFor(m => m.NombreComercial)
+        </div>
+        <div class="editor-field">
+            @Html.DisplayFor(model => model.NombreComercial)
+        </div>
+        <div class="editor-label">
+            @Html.DisplayNameFor(m => m.TelPrincipal)
+        </div>
+        <div class="editor-field">
+            @Html.DisplayFor(model => model.TelPrincipal)
+        </div>   
+        <div class="editor-label">    
+            @Html.DisplayNameFor(m => m.RazonSocial)
+        </div> 
+        <div class="editor-field">
+            @Html.DisplayFor(model => model.RazonSocial)
+        </div>      
+        <div class="editor-label">
+            @Html.DisplayNameFor(m => m.RFC)
+        </div>
+        <div class="editor-field">
+            @Html.DisplayFor(model => model.RFC)
+        </div>   
+        <div class="editor-label">
+            @Html.DisplayNameFor(m => m.RegProveedor)
+        </div>
+        <div class="editor-field">
+            @Html.DisplayFor(model => model.RegProveedor)
+        </div>      
+        <div class="editor-label">
+            @Html.DisplayNameFor(m => m.CorreoPrincipal)
+        </div>
+        <div class="editor-field">
+            @Html.DisplayFor(model => model.CorreoPrincipal)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.IdEstadoCliente, (IEnumerable<SelectListItem>)null, "Seleccione Edo. Civil", new {style = "width:190px", disabled = "disabled"})
+        </div>  
+       <div class="editor-field">
+            @Html.DropDownListFor(model => model.IdOrigen, (IEnumerable<SelectListItem>)null, "Seleccione origen del cliente", new {style = "width:190px", disabled = "disabled"})
+        </div> 
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.IdTipoPersona, (IEnumerable<SelectListItem>)null, "Seleccione tipo persona", new {style = "width:190px", disabled = "disabled"})
+        </div> 
+</fieldset>
+<p>
+    @Html.ActionLink("Contactos", "Contactos", new { id=Model.IdCliente }) |
+    @Html.ActionLink("Direcciones", "Direccion", new { id=Model.IdCliente })
+</p>
+
+<p>
+    @Html.ActionLink("Editar", "Editar", new { id=Model.IdCliente }) |
+    @Html.ActionLink("Regresar", "Index")
+</p>

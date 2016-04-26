@@ -1,0 +1,111 @@
+﻿@model DisiProject.Models.Contacto
+
+@{
+    ViewBag.Title = "Detalles";
+}
+
+@section nav {
+    @Html.Partial("_AdminMenuPartial")
+}
+
+<h2>Detalles</h2>
+
+<fieldset>
+    <legend></legend>
+
+   <div class="display-label">
+            @Html.DisplayNameFor(m => m.Descripcion)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Descripcion)
+        </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(m => m.Nombre1)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Nombre1)
+        </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(m => m.Nombre2)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Nombre2)
+        </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(m => m.ApellidoPaterno)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.ApellidoPaterno)
+        </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(m => m.ApellidoMaterno)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.ApellidoMaterno)
+        </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(m => m.FecNacimiento)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.FecNacimiento)
+        </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(m => m.CorreoPersonal)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.CorreoPersonal)
+        </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(m => m.CorreoEmpresarial)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.CorreoEmpresarial)
+        </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(m => m.TelPrincipal)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.TelPrincipal)
+        </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(m => m.TelMovil)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.TelMovil)
+        </div>   
+        <div class="display-label">    
+            @Html.DisplayNameFor(m => m.RazonSocial)
+        </div> 
+        <div class="display-field">
+            @Html.DisplayFor(model => model.RazonSocial)
+        </div>      
+        <div class="display-label">
+            @Html.DisplayNameFor(m => m.RFC)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.RFC)
+        </div>   
+        <div class="display-label">
+            @Html.DisplayNameFor(m => m.Sexo)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Sexo)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.IdEstadoCivil, (IEnumerable<SelectListItem>)null, "Seleccione Edo. Civil", new {style = "width:190px", disabled = "disabled"})
+        </div>  
+       <div class="editor-field">
+            @Html.DropDownListFor(model => model.IdTipoContacto, (IEnumerable<SelectListItem>)null, "Seleccione tipo contacto", new {style = "width:190px", disabled = "disabled"})
+        </div> 
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.IdTipoPersona, (IEnumerable<SelectListItem>)null, "Seleccione tipo persona", new {style = "width:190px", disabled = "disabled"})
+        </div> 
+</fieldset>
+<p>
+    @Html.ActionLink("Direcciones", "Direccion", new { id=Model.IdContacto })
+</p>
+
+<p>
+    @Html.ActionLink("Editar", "Editar", new { id=Model.IdContacto }) |
+    @Html.ActionLink("Regresar", "Index")
+</p>

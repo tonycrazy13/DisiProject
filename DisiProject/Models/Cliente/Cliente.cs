@@ -15,31 +15,43 @@ namespace DisiProject.Models
         {
         }
 
-        public DbSet<ClientesProfile> UserProfiles { get; set; }
+        public DbSet<Cliente> ClienteProfile { get; set; }
     }
 
     [Table("Clientes")]
-    public class ClientesProfile
+    public class Cliente
     {
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int IdCliente { get; set; }
+        [Required(ErrorMessage = "Seleccione un Edo.")]
         public int IdEstadoCliente { get; set; }
+        [Required(ErrorMessage = "Seleccione un origen.")]
         public int IdOrigen { get; set; }
+        [Required(ErrorMessage = "Ingrese telefono principal.")]
         public string TelPrincipal { get; set; }
+        [Required(ErrorMessage = "Ingrese correo principal.")]
         public string CorreoPrincipal { get; set; }
-        public int IdTipoPersona { get; set; } 
-        public string RazonSocial { get; set; } 
+        [Required(ErrorMessage = "Seleccione tipo de persona.")]
+        public int IdTipoPersona { get; set; }
+        [Required(ErrorMessage = "Ingrese razón social.")]
+        public string RazonSocial { get; set; }
+        [Required(ErrorMessage = "Ingrese RFC.")]
         public string RFC { get; set; }
+        [Required(ErrorMessage = "Ingrese nombre comercial.")]
         public string NombreComercial { get; set; }
+        [Required(ErrorMessage = "Ingrese reg. Cliente")]
         public string RegProveedor { get; set; }
+        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime FecAlta { get; set; }
+        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime FecMod { get; set; }
         public int IdUsuario { get; set; }
+        public int Estatus { get; set; }
     }
 
    
-    public class CrearClientesModel
+    public class ClienteProfile
     {
         
         [Required]
@@ -68,7 +80,7 @@ namespace DisiProject.Models
         [DataType(DataType.EmailAddress)]
         public string CorreoPrincipal { get; set; }
 
-        public CrearClientesModel()
+        public ClienteProfile()
         {
             TiposPersona = new List<string>(new[] { "One", "Two" });
             CurrentItem = "Two";

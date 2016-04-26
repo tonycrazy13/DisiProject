@@ -1,0 +1,128 @@
+﻿@model IEnumerable<DisiProject.Models.Contacto>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>@ViewBag.Cliente.Name Contactos Cliente</h2>
+
+<p>
+    @Html.ActionLink("Crear nuevo", "Crear", new { id=ViewBag.Cliente.IdCliente })
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ApellidoPaterno)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ApellidoMaterno)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FecNacimiento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CorreoPersonal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CorreoEmpresarial)
+        </th>
+         <th>
+            @Html.DisplayNameFor(model => model.TelPrincipal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TelMovil)
+        </th>
+         <th>
+            @Html.DisplayNameFor(model => model.RazonSocial)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RFC)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sexo)
+        </th>
+        <th>
+           Edo. Civil
+        </th>
+        <th>
+           Tipo contacto
+        </th>
+        <th>
+           Tipo persona
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nombre1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nombre2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ApellidoPaterno)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ApellidoMaterno)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FecNacimiento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CorreoPersonal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CorreoEmpresarial)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TelPrincipal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TelMovil)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RazonSocial)
+        <td>
+            @Html.DisplayFor(modelItem => item.RFC)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sexo)
+        </td>
+        <td>
+            @Html.DropDownListFor(modelItem => item.IdEstadoCivil, (IEnumerable<SelectListItem>)null, "Seleccione Edo. Civil", new {style = "width:190px", disabled = "disabled"})
+        </td>  
+       <td>
+            @Html.DropDownListFor(modelItem => item.IdTipoContacto, (IEnumerable<SelectListItem>)null, "Seleccione tipo contacto", new {style = "width:190px", disabled = "disabled"})
+        </td> 
+        <td>
+            @Html.DropDownListFor(modelItem => item.IdTipoPersona, (IEnumerable<SelectListItem>)null, "Seleccione tipo persona", new {style = "width:190px", disabled = "disabled"})
+        </td>
+        <td>
+            @Html.ActionLink("Direcciones", "Direccion", new { id=item.IdContacto }) 
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Editar", new { id=item.IdContacto }) |
+            @Html.ActionLink("Detalles", "Detalles", new { id=item.IdContacto }) |
+            @Html.ActionLink("Borrar", "Borrar", new { id=item.IdContacto })
+        </td>
+    </tr>
+}
+
+</table>
+
+<p>
+    @Html.ActionLink("Regresar", "Index", "Cliente")
+</p>
