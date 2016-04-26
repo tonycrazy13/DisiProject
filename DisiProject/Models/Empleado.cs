@@ -11,35 +11,35 @@ namespace DisiProject.Models
     public class Empleado
     {
         [Column("ID_EMPLEADO")]
-        public int ID { get; set; }
+        public int IdEmpleado { get; set; }
         [Column("ID_DIRECCION")]
-        public int direccionId { get; set; }
+        public int IdDireccion { get; set; }
         [Column("ID_ESTADO_CIVIL")]
-        public int estadoCivilId { get; set; }
+        public int IdEstadoCivil { get; set; }
         [Column("PUESTO")]
-        public string puesto { get; set; }
+        public int Puesto { get; set; }
         [Column("NOMBRE_1")]
-        public string nombre1 { get; set; }
+        public string Nombre1 { get; set; }
         [Column("NOMBRE_2")]
-        public string nombre2 { get; set; }
+        public string Nombre2 { get; set; }
         [Column("AP_PATERNO")]
-        public string paterno { get; set; }
+        public string Paterno { get; set; }
         [Column("AP_MATERNO")]
-        public int materno { get; set; }
+        public int Materno { get; set; }
         [Column("FEC_NAC")]
-        public DateTime fechaNacimiento { get; set; }
+        public DateTime FechaNacimiento { get; set; }
         [Column("CORREO_EMPRESARIAL")]
-        public int correoEmpresarial { get; set; }
+        public string CorreoEmpresarial { get; set; }
         [Column("TELEFONO")]
-        public int telefono { get; set; }
+        public string Telefono { get; set; }
         [Column("MOVIL")]
-        public int movil { get; set; }
+        public string Movil { get; set; }
         [Column("SEXO")]
-        public int sexo { get; set; }
+        public bool Sexo { get; set; }
         [Column("RFC")]
-        public int rfc { get; set; }
+        public int Rfc { get; set; }
         [Column("TIPO_EMPLEADO")]
-        public int tipoEmpleado { get; set; }
+        public int TipoEmpleado { get; set; }
 
     }
 }

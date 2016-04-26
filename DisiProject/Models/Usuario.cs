@@ -16,7 +16,7 @@ namespace DisiProject.Models
         [Column("ID_AREA")]
         public int IdArea { get; set; }
         [Column("ID_EMPLEADO")]
-        public int empleado { get; set; }
+        public int IdEmpleado { get; set; }
         [Column("USUARIO")]
         public string username { get; set; }
         [Column("CONTRASENA")]
@@ -34,5 +34,7 @@ namespace DisiProject.Models
 
         [ForeignKey("IdArea")]
         public virtual Area Area { get; set; }
+        //[ForeignKey("IdEmpleado")]
+        //public virtual Empleado Empleado { get; set; }
     }
 }

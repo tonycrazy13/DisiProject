@@ -52,10 +52,10 @@ namespace DisiProject.Controllers
                         //revisamos si tiene una pass generica para enviarlo a cambio de contraseña
 
 
-                        if (_validacion.ValidaAsociados(u.UserName, u.Password))
+                        if (_validacion.ValidaAsociados(u.UserName.ToUpper(), u.Password))
                         {
                             _counter = 0;
-                            return RedirectToAction("ResetContraseña", "Account", new { rt = u.UserName });
+                            return RedirectToAction("ResetContraseña", "Account", new { rt = u.UserName.ToUpper() });
                         }
 
                         //si no
@@ -63,19 +63,19 @@ namespace DisiProject.Controllers
                         var encriptado = _sha.GetSha1(u.Password);
 
                         //validamos x usuario y contraseña encriptada
-                        if (_validacion.ValidaAsociados(u.UserName, encriptado))
+                        if (_validacion.ValidaAsociados(u.UserName.ToUpper(), encriptado))
                         {
                             //revisamos que la cuenta no este bloqueada
-                            var sesion = _validacion.Sesion(u.UserName);
+                            var sesion = _validacion.Sesion(u.UserName.ToUpper());
 
                             //si no esta bloqueada accesa
                             if (sesion == false)
                             {
 
-                                var v = _validacion.Validacion(u.UserName, encriptado);
+                                var v = _validacion.Validacion(u.UserName.ToUpper(), encriptado);
                                 Session.Add("UserID", v.id.ToString());
-                                Session.Add("UserFullName", v.empleado);
-                                FormsAuthentication.SetAuthCookie(u.UserName, false);
+                                Session.Add("UserFullName", v.IdEmpleado);
+                                FormsAuthentication.SetAuthCookie(u.UserName.ToUpper(), false);
                                 if (!string.IsNullOrEmpty(returnUrl))
                                 {
                                     //si entra a la sesion reiniciamos contador
@@ -105,12 +105,12 @@ namespace DisiProject.Controllers
                         /// Intentos restantes
                         /// 
 
-                        var bloqueado = _validacion.Sesion(u.UserName);
+                        var bloqueado = _validacion.Sesion(u.UserName.ToUpper());
                         if (bloqueado == false)
                         {
                             //revisamos si existe el usuario para los intentos restantes antes de bloquear usuario
 
-                            if (_validacion.ValidaUsuario(u.UserName))
+                            if (_validacion.ValidaUsuario(u.UserName.ToUpper()))
                             {
                                 //tiliza el bloqueo de exclusión mutua de un objeto e iniciamos contador
                                 lock (LockObj)
@@ -121,7 +121,7 @@ namespace DisiProject.Controllers
                                 //si los intentos llegan al limite mandamos bandera para bloquear cuenta
                                 if (_counter == 3)
                                 {
-                                    _validacion.UpdateRegistro(u.UserName);
+                                    _validacion.UpdateRegistro(u.UserName.ToUpper());
                                     ViewBag.Error = _mensajes.CuentBloqueada(_counter);
                                 }
                                 else

@@ -201,6 +201,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Common\MyHelpers.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ComunController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Util\Email.cs" />
@@ -226,6 +227,15 @@
     <Content Include="Content\bootstrap-responsive.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\ladda\ladda-themeless.css" />
+    <Content Include="Content\ladda\ladda-themeless.min.css" />
+    <Content Include="Content\ladda\ladda.css" />
+    <Content Include="Content\ladda\ladda.jquery.min.js" />
+    <Content Include="Content\ladda\ladda.js" />
+    <Content Include="Content\ladda\ladda.min.css" />
+    <Content Include="Content\ladda\ladda.min.js" />
+    <Content Include="Content\ladda\spin.js" />
+    <Content Include="Content\ladda\spin.min.js" />
     <Content Include="Content\themes\base\images\ajax-loader.gif" />
     <Content Include="Content\themes\base\images\regresar.png" />
     <Content Include="Content\themes\base\images\sesion.png" />
@@ -303,6 +313,10 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
+    <Content Include="Scripts\ladda\ladda.jquery.js" />
+    <Content Include="Scripts\ladda\ladda.js" />
+    <Content Include="Scripts\ladda\prism.js" />
+    <Content Include="Scripts\ladda\spin.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Util\CambiosDB.txt" />
     <Content Include="Web.config">
