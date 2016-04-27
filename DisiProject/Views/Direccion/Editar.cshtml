@@ -1,0 +1,81 @@
+﻿@model DisiProject.Models.Direccion
+
+@{
+    ViewBag.Title = "Editar";
+}
+
+@section nav {
+    @Html.Partial("_AdminMenuPartial")
+}
+
+<h2>Editar</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend></legend>
+
+        @Html.HiddenFor(model => model.IdDireccion)
+
+        <div class="editor-label">
+            @Html.LabelFor(m => m.Calle)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Calle)
+            @Html.ValidationMessageFor(model => model.Calle)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(m => m.Exterior)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Exterior)
+            @Html.ValidationMessageFor(model => model.Exterior)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(m => m.Interior)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Interior)
+            @Html.ValidationMessageFor(model => model.Interior)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(m => m.CP)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CP)
+            @Html.ValidationMessageFor(model => model.CP)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(m => m.AntAnio)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.AntAnio)
+            @Html.ValidationMessageFor(model => model.AntAnio)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(m => m.AntMes)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.AntMes)
+            @Html.ValidationMessageFor(model => model.AntMes)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.IdTipoDireccion, (IEnumerable<SelectListItem>)null, "Seleccione un tipo dirección", new {style = "width:190px"})
+        </div>  
+        
+        <p>
+            <input type="submit" value="Guardar" />
+        </p>
+
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Regresar", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

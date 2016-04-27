@@ -1,6 +1,24 @@
-﻿@{
-    ViewBag.Title = "MttoUsuario";
+﻿@model IEnumerable<DisiProject.Models.Usuario>
+
+@{
+    ViewBag.Title = "Administracion de Usuarios";
+}
+<h2>Usuarios</h2>
+<table>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <button class="btn btn-primary ladda-button" data-style="expand-left"><span class="ladda-label">expand-left</span></button>
+        </td>
+        <td>
+            @Html.DisplayFor(item2 => item.username)
+        </td>
+        <td>
+            @Html.ActionLink("Edita", "Edita", new { id=item.id }) |
+            @Html.ActionLink("Inactivar", "Inactivar", new { id=item.id }) |
+            @Html.ActionLink("Resetea Constraseña", "Reset", new { id = item.id })
+        </td>
+    </tr>
 }
 
-<h2>MttoUsuario</h2>
-<h5>@ViewBag.titulo</h5>
+</table>

@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using DisiProject.AddModelError;
+using DisiProject.Models;
 
 namespace DisiProject.Datos
 {
     public class linq
     {
-        readonly PruebaUsuarioDisiDataContext _db = new PruebaUsuarioDisiDataContext();
+        DisiContext _db = new DisiContext();
         readonly Error _mensajes = new Error();
 
         public Boolean ValidaAsociados(string username, string password)
@@ -18,11 +19,11 @@ namespace DisiProject.Datos
             var compara = username.IndexOf(searchForThis);
             if (compara == -1)
             {
-                var validacion = _db.Usuarios.FirstOrDefault(a => a.UsuarioEmpleado.Equals(username) && a.Contraseña.Equals(password));
+                var validacion = _db.Usuarios.FirstOrDefault(a => a.username.Equals(username) && a.password.Equals(password));
                 return validacion != null;
             }
             {
-                var validacion = _db.Usuarios.FirstOrDefault(a => a.Correo.Equals(username) && a.Contraseña.Equals(password));
+                var validacion = _db.Usuarios.FirstOrDefault(a => a.correo.Equals(username) && a.password.Equals(password));
                 return validacion != null;
             }
 
@@ -36,11 +37,11 @@ namespace DisiProject.Datos
             var compara = username.IndexOf(searchForThis, StringComparison.Ordinal);
             if (compara == -1)
             {
-                var validacion = _db.Usuarios.FirstOrDefault(a => a.UsuarioEmpleado.Equals(username) && a.Contraseña.Equals(password));
+                var validacion = _db.Usuarios.FirstOrDefault(a => a.username.Equals(username) && a.password.Equals(password));
                 return validacion != null;
             }
             {
-                var validacion = _db.Usuarios.FirstOrDefault(a => a.Correo.Equals(username) && a.Contraseña.Equals(password));
+                var validacion = _db.Usuarios.FirstOrDefault(a => a.correo.Equals(username) && a.password.Equals(password));
                 return validacion != null;
             }
 
@@ -55,10 +56,10 @@ namespace DisiProject.Datos
             var compara = username.IndexOf(searchForThis);
             if (compara == -1)
             {
-                return _db.Usuarios.FirstOrDefault(a => a.UsuarioEmpleado.Equals(username) && a.Contraseña.Equals(password));
+                return _db.Usuarios.FirstOrDefault(a => a.username.Equals(username) && a.password.Equals(password));
             }
             {
-                return _db.Usuarios.FirstOrDefault(a => a.Correo.Equals(username) && a.Contraseña.Equals(password));
+                return _db.Usuarios.FirstOrDefault(a => a.correo.Equals(username) && a.password.Equals(password));
             }
 
 
@@ -73,10 +74,10 @@ namespace DisiProject.Datos
             var compara = username.IndexOf(searchForThis);
             if (compara == -1)
             {
-                return _db.Usuarios.FirstOrDefault(a => a.UsuarioEmpleado.Equals(username) && a.Contraseña.Equals(password));
+                return _db.Usuarios.FirstOrDefault(a => a.username.Equals(username) && a.password.Equals(password));
             }
             {
-                return _db.Usuarios.FirstOrDefault(a => a.Correo.Equals(username) && a.Contraseña.Equals(password));
+                return _db.Usuarios.FirstOrDefault(a => a.correo.Equals(username) && a.password.Equals(password));
             }
 
 
@@ -84,9 +85,9 @@ namespace DisiProject.Datos
         }
 
 
-        public int? Sesion(string username)
+        public bool? Sesion(string username)
         {
-            return (from a in _db.Usuarios where a.UsuarioEmpleado == username select a.Bloqueado).FirstOrDefault();
+            return (from a in _db.Usuarios where a.username == username select a.bloqueado).FirstOrDefault();
 
 
         }
@@ -94,7 +95,7 @@ namespace DisiProject.Datos
 
         public Boolean ValidaUsuario(string username)
         {
-            var validacion = _db.Usuarios.FirstOrDefault(a => a.UsuarioEmpleado.Equals(username));
+            var validacion = _db.Usuarios.FirstOrDefault(a => a.username.Equals(username));
             return validacion != null;
 
         }
@@ -103,68 +104,65 @@ namespace DisiProject.Datos
 
         public Usuario ValidacionUsuario(string username)
         {
-            return _db.Usuarios.FirstOrDefault(a => a.UsuarioEmpleado.Equals(username));
+            return _db.Usuarios.FirstOrDefault(a => a.username.Equals(username));
         }
 
         public void UpdateRegistro(string username)
         {
-            var registro = _db.Usuarios.SingleOrDefault(w => w.UsuarioEmpleado == username);
-            registro.Bloqueado = 1;
-            registro.FechaBloqueado = DateTime.Now.ToString(_mensajes.Fecha());
-            _db.SubmitChanges();
+            var registro = _db.Usuarios.SingleOrDefault(w => w.username == username);
+            registro.bloqueado = true;
+            registro.fechaBloqueado = DateTime.Now;
+            _db.SaveChanges();
         }
 
 
         public string UsuarioEmail(string email)
         {
             return (from u in _db.Usuarios
-                    where u.Correo == email
-                    select u.UsuarioEmpleado).FirstOrDefault();
+                    where u.correo == email
+                    select u.username).FirstOrDefault();
 
 
         }
 
         public void ActualizarFecha(string email)
         {
-            var registro = _db.Usuarios.SingleOrDefault(w => w.Correo == email);
-            registro.FechaContraseña = DateTime.Now.ToString(_mensajes.Fecha());
-            _db.SubmitChanges();
+            var registro = _db.Usuarios.SingleOrDefault(w => w.correo == email);
+            registro.fechaContrasenia = DateTime.Now;
+            _db.SaveChanges();
         }
 
         public Usuario ExisteUsuario(string username)
         {
 
-            return _db.Usuarios.SingleOrDefault(w => w.UsuarioEmpleado == username);
+            return _db.Usuarios.SingleOrDefault(w => w.username == username);
 
         }
 
 
         public string Date(string username)
         {
-            return (from u in _db.Usuarios
-                    where u.UsuarioEmpleado == username
-                    select u.FechaContraseña).FirstOrDefault();
-
+            DateTime fecha = (from u in _db.Usuarios
+                    where u.username == username
+                    select u.fechaContrasenia).FirstOrDefault();
+            return fecha.ToString(_mensajes.Fecha());
         }
 
 
         public string Email(string username)
         {
             return (from u in _db.Usuarios
-                    where u.UsuarioEmpleado == username
-                    select u.Correo).FirstOrDefault();
+                    where u.username == username
+                    select u.correo).FirstOrDefault();
         }
 
 
         public void ActualizarfechaUsuario(Usuario registro, string encriptado)
         {
-            registro.FechaContraseña = DateTime.Now.ToString(_mensajes.Fecha());
-            registro.Contraseña = encriptado;
-            registro.Bloqueado = 0;
-            _db.SubmitChanges();
+            registro.fechaContrasenia = DateTime.Now;
+            registro.password = encriptado;
+            registro.bloqueado = false;
+            _db.SaveChanges();
         }
-
-
-
     }
 }

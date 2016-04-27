@@ -1,0 +1,60 @@
+﻿@model DisiProject.Models.Direccion
+
+@{
+    ViewBag.Title = "Detalles";
+}
+
+@section nav {
+    @Html.Partial("_AdminMenuPartial")
+}
+
+<h2>Detalles</h2>
+
+<fieldset>
+    <legend></legend>
+
+   <div class="display-label">
+            @Html.DisplayNameFor(m => m.Calle)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Calle)
+        </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(m => m.Exterior)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Exterior)
+        </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(m => m.Interior)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Interior)
+        </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(m => m.CP)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.CP)
+        </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(m => m.AntAnio)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.AntAnio)
+        </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(m => m.AntMes)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.AntMes)
+        </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Direcciones", "Direccion", new { id=Model.IdDireccion })
+</p>
+
+<p>
+    @Html.ActionLink("Editar", "Editar", new { id=Model.IdDireccion }) |
+    @Html.ActionLink("Regresar", "Index")
+</p>

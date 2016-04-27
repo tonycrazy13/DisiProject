@@ -1,0 +1,89 @@
+﻿@model DisiProject.Models.Cliente
+
+@{
+    ViewBag.Title = "Editar";
+}
+
+@section nav {
+    @Html.Partial("_AdminMenuPartial")
+}
+
+<h2>Editar</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend></legend>
+
+        @Html.HiddenFor(model => model.IdCliente)
+
+        <div class="editor-label">
+            @Html.LabelFor(m => m.NombreComercial)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.NombreComercial)
+            @Html.ValidationMessageFor(model => model.NombreComercial)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(m => m.TelPrincipal)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TelPrincipal)
+            @Html.ValidationMessageFor(model => model.TelPrincipal)
+        </div>   
+        <div class="editor-label">    
+            @Html.LabelFor(m => m.RazonSocial)
+        </div> 
+        <div class="editor-field">
+            @Html.EditorFor(model => model.RazonSocial)
+            @Html.ValidationMessageFor(model => model.RazonSocial)
+        </div>      
+        <div class="editor-label">
+            @Html.LabelFor(m => m.RFC)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.RFC)
+            @Html.ValidationMessageFor(model => model.RFC)
+        </div>   
+        <div class="editor-label">
+            @Html.LabelFor(m => m.RegProveedor)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.RegProveedor)
+            @Html.ValidationMessageFor(model => model.RegProveedor)
+        </div>      
+        <div class="editor-label">
+            @Html.LabelFor(m => m.CorreoPrincipal)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CorreoPrincipal)
+            @Html.ValidationMessageFor(model => model.CorreoPrincipal)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.IdEstadoCliente, (IEnumerable<SelectListItem>)null, "Seleccione Edo. Civil", new {style = "width:190px"})
+        </div>  
+       <div class="editor-field">
+            @Html.DropDownListFor(model => model.IdOrigen, (IEnumerable<SelectListItem>)null, "Seleccione origen del cliente", new {style = "width:190px"})
+        </div> 
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.IdTipoPersona, (IEnumerable<SelectListItem>)null, "Seleccione tipo persona", new {style = "width:190px"})
+        </div> 
+        <p>
+            @Html.ActionLink("Contactos", "Contactos", new { id=Model.IdCliente }) |
+            @Html.ActionLink("Direcciones", "Direccion", new { id=Model.IdCliente })
+        </p>
+        <p>
+            <input type="submit" value="Guardar" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Regresar", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

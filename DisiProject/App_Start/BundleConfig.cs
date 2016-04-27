@@ -37,7 +37,7 @@ namespace DisiProject
                         "~/Content/themes/base/jquery.ui.tabs.css",
                         "~/Content/themes/base/jquery.ui.datepicker.css",
                         "~/Content/themes/base/jquery.ui.progressbar.css",
-                        "~/Content/themes/base/jquery.ui.theme.css"));
+                        "~/Content/ladda/ladda-themeless.min.css"));
 
 
 
@@ -48,7 +48,9 @@ namespace DisiProject
              "~/Scripts/bootstrap.js",
              "~/Scripts/jquery.validate.js",
              "~/scripts/jquery.validate.unobtrusive.js",
-             "~/Scripts/jquery.validate.unobtrusive-custom-for-bootstrap.js"
+             "~/Scripts/jquery.validate.unobtrusive-custom-for-bootstrap.js",
+             "~/Scripts/ladda/spin.min.js",
+             "~/Scripts/ladda.min.js"
              ));
 
             bundles.Add(new StyleBundle("~/content/css").Include(
