@@ -1,0 +1,59 @@
+﻿@model DisiProject.Models.CrearPrivilegios
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Roles y Privilegios</h2>
+
+
+<section id="crearPrivilegios">
+@using (Html.BeginForm("Crear"))
+{
+  
+
+    <fieldset>
+        <legend>"Validacion de Roles y Privilegios"</legend>
+
+    <table>
+
+            <tr>
+                <td>
+                    <h5>@Html.LabelFor(m => m.Usuario)</h5>
+                </td>
+                <td>
+                      @Html.TextBoxFor(m => m.Usuario)
+                </td>
+
+                <td>
+                    <button class="btn btn-primary">Buscar
+                        <span class="glyphicon glyphicon-log-in"></span></button>
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    <h5>@Html.LabelFor(m => m.Empleado)</h5>
+                </td>
+                <td>
+                      @Html.TextBoxFor(m => m.Empleado)
+                </td>
+                <td>
+                    <h5>@Html.LabelFor(m => m.Areas)</h5>
+                </td>
+                <td>
+                     <fieldset>
+                          @Html.DropDownListFor(modelItem => m.CurrentItem, Model.Areas)
+                     </fieldset>
+                </td>
+
+            </tr>
+        </table>
+
+
+    </fieldset>
+    
+    
+   
+     
+}
+</section>
