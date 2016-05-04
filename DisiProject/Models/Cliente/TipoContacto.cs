@@ -10,32 +10,32 @@ namespace DisiProject.Models
 {
 
 
-    [Table("CAT_TIPO_DIRECCION")]
-    public class TipoDireccion
+    [Table("CAT_TIPOS_CONTACTOS")]
+    public class TipoContacto
     {
         [Key]
-        [Column("ID_TIPO_DIRECCION")]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-        public int IdTipoDireccion { get; set; }
+        [Column("ID__TIPO_CONTACTO")]
+        public int IdTipoContacto { get; set; }
 
-        [Column("DES_TIPO_DIRECCION")]
-        [Required(ErrorMessage = "Ingrese descripción.")]
-        public string Descripcion { get; set; }
+        [Column("DES_CONTACTO_LARGA")]
+        public string DescripcionLarga { get; set; }
+
+        [Column("DES_CONTACTO_CORTA")]
+        public string DescripcionCorta { get; set; }        
 
         [Column("FEC_ALTA")]
-        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FecAlta { get; set; }
 
         [Column("FEC_MOD")]
-        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FecMod { get; set; }
-
+     
         [Column("ID_USUARIO")]
         public int IdUsuario { get; set; }
-
+       
         [Column("ESTATUS")]
         public int Estatus { get; set; }
-
-
     }    
 }

@@ -1,0 +1,105 @@
+﻿@using DisiProject.Common
+@model DisiProject.Models.Cliente
+
+@{
+    ViewBag.Title = "Crear";
+}
+
+@*<h2>Nuevo cliente</h2>*@
+
+<section id="crearClientesForm">
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    @Html.AntiForgeryToken()
+
+    <fieldset>
+        <legend>Ingrese los datos del cliente</legend>
+        @if (ViewBag.Error != null)
+            {
+
+                <div class="alert alert-danger">
+                    <a href="#" class="close" data-dismiss="alert" dismiss-on-timeout="5000" aria-label="close">&times;</a>
+                    <strong>Error!</strong> @ViewBag.Error
+                </div>
+            }
+
+            @if (ViewBag.Info != null)
+            {
+                <div class="alert alert-info">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>Alerta!</strong> @ViewBag.Info
+                </div>
+            }
+
+        <div class="editor-label">
+            @Html.LabelFor(m => m.NombreComercial)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.NombreComercial)
+            @Html.ValidationMessageFor(model => model.NombreComercial)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(m => m.TelPrincipal)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TelPrincipal)
+            @Html.ValidationMessageFor(model => model.TelPrincipal)
+        </div>   
+        <div class="editor-label">    
+            @Html.LabelFor(m => m.RazonSocial)
+        </div> 
+        <div class="editor-field">
+            @Html.EditorFor(model => model.RazonSocial)
+            @Html.ValidationMessageFor(model => model.RazonSocial)
+        </div>      
+        <div class="editor-label">
+            @Html.LabelFor(m => m.RFC)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.RFC)
+            @Html.ValidationMessageFor(model => model.RFC)
+        </div>   
+        <div class="editor-label">
+            @Html.LabelFor(m => m.RegProveedor)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.RegProveedor)
+            @Html.ValidationMessageFor(model => model.RegProveedor)
+        </div>      
+        <div class="editor-label">
+            @Html.LabelFor(m => m.CorreoPrincipal)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CorreoPrincipal)
+            @Html.ValidationMessageFor(model => model.CorreoPrincipal)
+        </div>
+       <div class="editor-field">
+            @Html.DropDownListFor(model => model.IdEstadoCliente, (IEnumerable<SelectListItem>)ViewBag.fieldEstadoCliente, "Seleccione estado cliente", new {style = "width:190px"})
+        </div>  
+       <div class="editor-field">
+            @Html.DropDownListFor(model => model.IdOrigen, (IEnumerable<SelectListItem>)ViewBag.fieldOrigenCliente, "Seleccione origen del cliente", new {style = "width:190px"})
+        </div> 
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.IdTipoPersona, (IEnumerable<SelectListItem>)ViewBag.fieldTipoPersona, "Seleccione tipo persona", new {style = "width:190px"})
+        </div> 
+        <p>
+           @Html.ActionLink("Contactos", "Crear", "Contacto", new { id = 0}, null) |
+            @Html.ActionLink("Direcciones", "Crear", "Direccion", new { id = 0, tipoDireccion=1}, null)
+        </p>
+        <p>
+            <input type="submit" value="Crear" />
+        </p>
+             
+
+    </fieldset>
+}
+
+    <div>
+        @Html.ActionLink("Regresar", "Index")
+    </div>
+</section>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

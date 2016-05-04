@@ -5,20 +5,63 @@
     ViewBag.Title = "Crear";
 }
 
-@section nav {
-    @Html.Partial("_AdminMenuPartial")
-}
-
 <h2>Nueva dirección</h2>
+
+<script type="text/jscript">
+    if (Request.Form["SubmitCP"] != null) {
+        Console.log("mostrando valor" + $('#textCP').val());
+        $.getJSON('/Direccion/BuscarCP?cp=' + $('#textCP').val(), function (data) {
+
+            var items = '<table><tr><th>Estado</th><th>Municipio</th><th>Ciudad</th><th>Colonia</th></tr>';
+            $.each(data, function (i, cp) {
+                items += "<tr><td>" + cp.Estado + "</td><td>" + cp.Municipio + "</td><td>" + cp.Ciudad + "</td><td>" + cp.DescripcionColonia + "</td></tr>";
+            });
+            items += "</table>";
+
+            $('#rData').html(items);
+        });
+    }
+
+    $('#SubmitCP').click(function () {
+        Console.log("mostrando valor" + $('#textCP').val());
+        $.getJSON('/Direccion/BuscarCP?cp=' + $('#textCP').val(), function (data) {
+
+            var items = '<table><tr><th>Estado</th><th>Municipio</th><th>Ciudad</th><th>Colonia</th></tr>';
+            $.each(data, function (i, cp) {
+                items += "<tr><td>" + cp.Estado + "</td><td>" + cp.Municipio + "</td><td>" + cp.Ciudad + "</td><td>" + cp.DescripcionColonia + "</td></tr>";
+            });
+            items += "</table>";
+
+            $('#rData').html(items);
+        });
+        return true;
+    })
+</script>
 
 <section id="crearDireccionForm">
 @using (Html.BeginForm())
 {
-    @Html.ValidationSummary(true)
     @Html.AntiForgeryToken()
 
     <fieldset>
         <legend>Ingrese los datos de la dirección</legend>
+
+            @if (ViewBag.Error != null)
+            {
+
+                <div class="alert alert-danger">
+                    <a href="#" class="close" data-dismiss="alert" dismiss-on-timeout="5000" aria-label="close">&times;</a>
+                    <strong>Error!</strong> @ViewBag.Error
+                </div>
+            }
+
+            @if (ViewBag.Info != null)
+            {
+                <div class="alert alert-info">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>Alerta!</strong> @ViewBag.Info
+                </div>
+            }
         
         <div class="editor-label">
             @Html.LabelFor(m => m.Calle)
@@ -45,17 +88,20 @@
             Tipo dirección
         </div>
         <div class="editor-field">
-            @Html.DropDownListFor(model => model.IdTipoDireccion, (IEnumerable<SelectListItem>)null, "Seleccione un tipo dirección", new {style = "width:190px"})
+            @Html.DropDownListFor(m => m.IdTipoDireccion, (IEnumerable<SelectListItem>)ViewBag.fieldTiposDireccion,  new {style = "width:190px"} )
            
         </div>         
 
         <div class="editor-label">
-            @Html.LabelFor(m => m.CP)
+            @Html.LabelFor(m => m.idCP)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.CP)
-            @Html.ValidationMessageFor(model => model.CP)
+             @Html.TextBoxFor(x=>x.StringCP)
+            @*@Html.ActionLink("Buscar", "BuscarCP", "Direccion", new { cp = Model.StringCP}, null)*@
+            <div id="rData"></div>
+            <input type="submit" id="SubmitCP" value="Buscar"/>
         </div>
+
         <div class="editor-label">
             @Html.LabelFor(m => m.AntAnio)
         </div>
@@ -79,7 +125,16 @@
 }
 
     <div>
-        @Html.ActionLink("Regresar", "Index")
+        @{
+            if (@ViewBag.tipoDireccion == 1)
+            {
+                @Html.ActionLink("Regresar", "Index", "Cliente", null, null);               
+            }
+            else 
+            {
+                @Html.ActionLink("Regresar", "Index", "Contacto", null, null);
+            }
+        }
     </div>
 </section>
 

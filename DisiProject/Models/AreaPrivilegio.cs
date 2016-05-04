@@ -8,17 +8,6 @@ using System.Web.Security;
 
 namespace DisiProject.Models
 {
-    public class AreaPrivilegio : DbContext
-    {
-        public AreaPrivilegio()
-            : base("DefaultConnection")
-        {
-        }
-
-        public DbSet<AreaPrivilegio> PermisosUsuario { get; set; }
-    }
-
-
     [Table("Permisos_Usuarios")]
     public class AreaPrivilegio
     {

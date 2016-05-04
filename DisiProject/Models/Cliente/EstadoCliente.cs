@@ -10,32 +10,29 @@ namespace DisiProject.Models
 {
 
 
-    [Table("CAT_TIPO_DIRECCION")]
-    public class TipoDireccion
+    [Table("CAT_ESTADOS_CLIENTES")]
+    public class EstadoCliente
     {
         [Key]
-        [Column("ID_TIPO_DIRECCION")]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-        public int IdTipoDireccion { get; set; }
+        [Column("ID_ESTADO_CLIENTE")]
+        public int IdEstadoCliente { get; set; }
 
-        [Column("DES_TIPO_DIRECCION")]
-        [Required(ErrorMessage = "Ingrese descripción.")]
+        [Column("DES_ESTADO_CLIENTES")]
         public string Descripcion { get; set; }
 
         [Column("FEC_ALTA")]
-        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FecAlta { get; set; }
 
         [Column("FEC_MOD")]
-        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FecMod { get; set; }
-
+     
         [Column("ID_USUARIO")]
         public int IdUsuario { get; set; }
-
+       
         [Column("ESTATUS")]
         public int Estatus { get; set; }
-
-
     }    
 }

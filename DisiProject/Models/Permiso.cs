@@ -8,18 +8,6 @@ using System.Web.Security;
 
 namespace DisiProject.Models
 {
-    public class Permiso : DbContext
-    {
-        public Permiso()
-            : base("DefaultConnection")
-        {
-        }
-
-        public DbSet<Permiso> Permiso{ get; set; }
-    }
-
-
-
     [Table("Cat_Permisos")]
     public class Permiso
     {

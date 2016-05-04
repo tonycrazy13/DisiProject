@@ -8,18 +8,6 @@ using System.Web.Security;
 
 namespace DisiProject.Models
 {
-    public class Privilegios : DbContext
-    {
-        public Privilegios()
-            : base("DefaultConnection")
-        {
-        }
-
-        public DbSet<Privilegios> Privilegios { get; set; }
-    }
-
-
-
     [Table("Cat_Privilegios")]
     public class Privilegios
     {

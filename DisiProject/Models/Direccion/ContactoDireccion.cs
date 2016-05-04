@@ -8,22 +8,27 @@ using System.Web.Security;
 
 namespace DisiProject.Models
 {
-   
 
-    [Table("clientes_contactos")]
-    public class ClienteContacto
+
+    [Table("CONTACTOS_DIRECCIONES")]
+    public class ContactoDireccion
     {
         [Key]
-        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-        [Column("ID_CLIENTE")]
-        public int IdCliente { get; set; }
-
         [Column("ID_CONTACTO")]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int IdContacto { get; set; }
+
+        [Column("ID_DIRECCION")]
+        [Required(ErrorMessage = "Ingrese descripción.")]
+        public string IdDireccion { get; set; }
 
         [Column("FEC_ALTA")]
         [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime FecAlta { get; set; }
+
+        [Column("FEC_BAJA")]
+        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime FecBaja { get; set; }
 
         [Column("FEC_MOD")]
         [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
@@ -32,12 +37,9 @@ namespace DisiProject.Models
         [Column("ID_USUARIO")]
         public int IdUsuario { get; set; }
 
-        [Column("FLG_ESTATUS")]
+        [Column("ESTATUS")]
         public int Estatus { get; set; }
 
-        [ForeignKey("IdCliente")]
-        public Cliente Cliente { get; set; }
-        [ForeignKey("IdContacto")]
-        public Contacto Contacto { get; set; }
+
     }    
 }

@@ -8,18 +8,16 @@ using System.Web.Security;
 
 namespace DisiProject.Models
 {
-   
-
-    [Table("clientes_contactos")]
-    public class ClienteContacto
+    [Table("CAT_ORIGENES")]
+    public class OrigenCliente
     {
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-        [Column("ID_CLIENTE")]
-        public int IdCliente { get; set; }
+        [Column("ID_ORIGEN")]
+        public int IdOrigenCliente { get; set; }
 
-        [Column("ID_CONTACTO")]
-        public int IdContacto { get; set; }
+        [Column("DESC_ORIGEN")]
+        public string Descripcion { get; set; }
 
         [Column("FEC_ALTA")]
         [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
@@ -32,12 +30,7 @@ namespace DisiProject.Models
         [Column("ID_USUARIO")]
         public int IdUsuario { get; set; }
 
-        [Column("FLG_ESTATUS")]
+        [Column("ESTATUS")]
         public int Estatus { get; set; }
-
-        [ForeignKey("IdCliente")]
-        public Cliente Cliente { get; set; }
-        [ForeignKey("IdContacto")]
-        public Contacto Contacto { get; set; }
     }    
 }

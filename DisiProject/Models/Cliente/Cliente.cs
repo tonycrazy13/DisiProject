@@ -18,118 +18,79 @@ namespace DisiProject.Models
         public DbSet<Cliente> ClienteProfile { get; set; }
     }
 
-    [Table("Clientes")]
+    [Table("CLIENTES")]
     public class Cliente
     {
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+        [Column("ID_CLIENTE")]
         public int IdCliente { get; set; }
-        [Required(ErrorMessage = "Seleccione un Edo.")]
+
+        [Column("ID_ESTADO_CLIENTE")]
+        [Required(ErrorMessage = "Seleccione un Edo.")]        
         public int IdEstadoCliente { get; set; }
+
+        [Column("ID_ORIGEN")]
         [Required(ErrorMessage = "Seleccione un origen.")]
         public int IdOrigen { get; set; }
+
+        [Column("TEL_PRINCIPAL")]
+        [Display(Name = "Tel. Principal")]
         [Required(ErrorMessage = "Ingrese telefono principal.")]
         public string TelPrincipal { get; set; }
-        [Required(ErrorMessage = "Ingrese correo principal.")]
-        public string CorreoPrincipal { get; set; }
-        [Required(ErrorMessage = "Seleccione tipo de persona.")]
-        public int IdTipoPersona { get; set; }
-        [Required(ErrorMessage = "Ingrese razón social.")]
-        public string RazonSocial { get; set; }
-        [Required(ErrorMessage = "Ingrese RFC.")]
-        public string RFC { get; set; }
-        [Required(ErrorMessage = "Ingrese nombre comercial.")]
-        public string NombreComercial { get; set; }
-        [Required(ErrorMessage = "Ingrese reg. Cliente")]
-        public string RegProveedor { get; set; }
-        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime FecAlta { get; set; }
-        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime FecMod { get; set; }
-        public int IdUsuario { get; set; }
-        public int Estatus { get; set; }
-    }
 
-   
-    public class ClienteProfile
-    {
-        
-        [Required]
-        [Display(Name = "Nombre Comercial")]
-        public string NombreComercial { get; set; }
-
-        [Required]
-        [Display(Name = "Tel. Principal")]
-        public string TelPrincipal { get; set; }
-
-        [Required]
-        [Display(Name = "Razon Social")]
-        public string RazonSocial { get; set; }
-
-        [Required]
-        [Display(Name = "RFC")]
-        public string RFC { get; set; }
-
-        [Required]
-        [Display(Name = "Reg. Proveedor")]
-        public string RegProveedor { get; set; }
-        
-        [Required]
+        [Column("CORREO_PRINCIPAL")]
         [Display(Name = "Correo Electrónico")]
         [RegularExpression(@"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$", ErrorMessage = "Por favor valide su correo electronico")]
         [DataType(DataType.EmailAddress)]
+        [Required(ErrorMessage = "Ingrese correo principal.")]
         public string CorreoPrincipal { get; set; }
 
-        public ClienteProfile()
-        {
-            TiposPersona = new List<string>(new[] { "One", "Two" });
-            CurrentItem = "Two";
-        }
+        [Column("ID_TIPO_PERSONA")]
+        [Required(ErrorMessage = "Seleccione tipo de persona.")]
+        public int IdTipoPersona { get; set; }
 
-        public List<string> TiposPersona { get; set; }
-        public string CurrentItem { get; set; }
+        [Column("RAZON_SOCIAL")]
+        [Display(Name = "Razon Social")]
+        [Required(ErrorMessage = "Ingrese razón social.")]
+        public string RazonSocial { get; set; }
 
-        [Required(ErrorMessage = "Please specify whether you'll attend")]
-        public bool? WillAttend { get; set; }
+        [Column("RFC")]
+        [Display(Name = "RFC")]
+        [Required(ErrorMessage = "Ingrese RFC.")]
+        public string RFC { get; set; }
 
-        public string ReturnUrl { get; set; }     
-    }
-    
-    public class EstadoClienteModel
-    {
-        public EstadoClienteModel()
-        {
-            EdosClientes = new List<string>(new[] { "One", "Two" });
-            CurrentItem = "Two";
-        }
+        [Column("NOMBRE_COMERCIAL")]
+        [Display(Name = "Nombre Comercial")]
+        [Required(ErrorMessage = "Ingrese nombre comercial.")]
+        public string NombreComercial { get; set; }
 
-        public List<string> EdosClientes { get; set; }
-        public string CurrentItem { get; set; }
-    }
+        [Column("REG_PROVEEDOR")]
+        [Display(Name = "Reg. Proveedor")]
+        [Required(ErrorMessage = "Ingrese reg. Cliente")]
+        public string RegProveedor { get; set; }
 
-    public class OrigenClienteModel
-    {
-        public OrigenClienteModel()
-        {
-            OrigenesCliente = new List<string>(new[] { "One", "Two" });
-            CurrentItem = "Two";
-        }
+        [Column("FEC_ALTA")]
+        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime FecAlta { get; set; }
 
-        public List<string> OrigenesCliente { get; set; }
-        public string CurrentItem { get; set; }
-    }
+        [Column("FEC_MOD")]
+        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime FecMod { get; set; }
 
-    public class TipoPersonaClienteModel
-    {
-        public TipoPersonaClienteModel()
-        {
-            TiposPersona = new List<string>(new[] { "One", "Two" });
-            CurrentItem = "Two";
-        }
+        [Column("ID_USUARIO")]
+        public int IdUsuario { get; set; }
 
-        public List<string> TiposPersona { get; set; }
-        public string CurrentItem { get; set; }
-    }
+        [Column("ESTATUS")]
+        public int Estatus { get; set; }
 
-    
+        [ForeignKey("IdEstadoCliente")]
+        public virtual EstadoCliente EstadoCliente { get; set; }
+
+        [ForeignKey("IdOrigen")]
+        public virtual OrigenCliente OrigenCliente { get; set; }
+
+        [ForeignKey("IdTipoPersona")]
+        public virtual TipoPersona TipoPersona { get; set; }
+    }       
 }

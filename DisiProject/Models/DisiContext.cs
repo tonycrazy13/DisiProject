@@ -23,6 +23,16 @@ namespace DisiProject.Models
         public DbSet<UserProfile> UserProfiles { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Area> Areas { get; set; }
-        //public DbSet<Empleado> Empleados { get; set; }
+        public DbSet<Cliente> Clientes { get; set; }
+        public DbSet<ClienteContacto> ClientesContacto { get; set; }
+        public DbSet<Contacto> Contactos { get; set; }
+        public DbSet<Direccion> Direcciones { get; set; }
+        public DbSet<TipoDireccion> TiposDireccion { get; set; }
+        public DbSet<EstadoCliente> EdosCliente { get; set; }
+        public DbSet<OrigenCliente> OrigenesCliente { get; set; }
+        public DbSet<TipoPersona> TiposPersona { get; set; }
+        public DbSet<TipoContacto> TiposContacto { get; set; }
+        public DbSet<EstadoCivil> EstadosCivil { get; set; }
+        public DbSet<CP> CPs { get; set; }
     }
 }

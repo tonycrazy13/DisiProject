@@ -16,7 +16,7 @@ namespace DisiProject.Controllers
 
         public ActionResult Index()
         {
-            ViewBag.idArea = new SelectList();
+            //ViewBag.idArea = new SelectList();
 
             return View();
         }
