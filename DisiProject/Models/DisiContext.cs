@@ -34,5 +34,9 @@ namespace DisiProject.Models
         public DbSet<TipoContacto> TiposContacto { get; set; }
         public DbSet<EstadoCivil> EstadosCivil { get; set; }
         public DbSet<CP> CPs { get; set; }
+        public DbSet<Permiso> Permisos { get; set; }
+        public DbSet<AreaPrivilegio> AreasPrivilegio { get; set; }
+
+
     }
 }
