@@ -24,5 +24,7 @@ namespace DisiProject.Models
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Area> Areas { get; set; }
         //public DbSet<Empleado> Empleados { get; set; }
+        public DbSet<Permiso> Permisos{ get; set; }
+        public DbSet<AreaPrivilegio> AreasPrivilegio { get; set; }
     }
 }
