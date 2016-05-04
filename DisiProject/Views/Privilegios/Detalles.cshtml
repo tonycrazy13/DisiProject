@@ -1,0 +1,59 @@
+﻿
+@model IEnumerable<DisiProject.Models.AreaPrivilegio>
+
+
+@{
+    ViewBag.Title = "Detalles";
+}
+
+<h2>Roles y Privilegios</h2>
+
+
+
+    
+        
+       
+     <table class="table table-striped">
+
+
+          <tr>
+        <th>
+            @Html.Label("AREA")
+        </th>
+        <th>
+             @Html.Label("PERMISO")
+        </th>
+        
+        <th></th>
+    </tr>
+
+
+        @foreach (var item in Model) {
+            
+            
+               
+    <tr>
+        <td>
+            @Html.DisplayFor(item2 => item.Area.DESCRIPCION)
+
+        </td>
+
+        <td>
+            @Html.DisplayFor(item2 => item.Permiso.DesPermiso)
+
+        </td>
+
+         <td>
+            @Html.ActionLink("Editar", "Editar", new { id = item.IdArea , idPermiso = item.IdPermiso }) |
+            @Html.ActionLink("Borrar", "Borrar", new { id = item.IdArea , idPermiso = item.IdPermiso })
+            
+        </td>
+    </tr>
+            }
+    </table>
+   
+       
+           
+    
+   
+ @Html.ActionLink("Regresar", "Index")

@@ -8,45 +8,37 @@ using System.Web.Security;
 
 namespace DisiProject.Models
 {
-    [Table("Permisos_Usuarios")]
+   
+    [Table("AREA_PRIVILEGIO")]
     public class AreaPrivilegio
-    {
+    {   
         [Key]
-        public int IdUsuario { get; set; }
+        [Column("ID_AREA")]
+        public int IdArea { get; set; }
+
+        [Column("ID_PERMISO")]
         public int IdPermiso { get; set; }
-        public int IdPrivilegio { get; set; }
-    }
+  
+        [Column("FEC_ALTA")]
+        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime FecAlta { get; set; }
 
+        [Column("FEC_MOD")]
+        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime FecMod { get; set; }
 
-      
+        [Column("ID_USUARIO")]
+        public int IdUsuario { get; set; }
 
-    public class CrearPrivilegios
-    {
+        [Column("ESTATUS")]
+        public int Estatus { get; set; }
 
-        [Required]
-        [Display(Name = "Usuario")]
-        public string Usuario { get; set; }
+        //navigation
+        [ForeignKey("IdArea")]
+        public virtual Area Area { get; set; }
+        [ForeignKey("IdPermiso")]
+        public virtual Permiso Permiso { get; set; }
 
-        [Required]
-        [Display(Name = "Area")]
-        public int Area { get; set; }
-
-        [Required]
-        [Display(Name = "Empleado")]
-        public int Empleado { get; set; }
-
-        [Required]
-        [Display(Name = "Permisos")]
-        public int Permisos { get; set; }
-
-        public List<string> Areas { get; set; }
-        public string CurrentItem { get; set; }
-
-        [Required(ErrorMessage = "Please specify whether you'll attend")]
-        public bool? WillAttend { get; set; }
-
-    }
-      
     
-
+    }
  }

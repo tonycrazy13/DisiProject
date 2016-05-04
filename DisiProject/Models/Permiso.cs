@@ -8,13 +8,16 @@ using System.Web.Security;
 
 namespace DisiProject.Models
 {
-    [Table("Cat_Permisos")]
+   
+    [Table("CAT_PERMISOS")]
     public class Permiso
     {
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-        public int IdPermiso { get; set; }
-        public String desPermiso { get; set; }
+          [Column("ID_PERMISO")] 
+             public int IdPermiso { get; set; }
+        [Column("DES_PERMISO")]
+        public string DesPermiso { get; set; }
     }
 
     
