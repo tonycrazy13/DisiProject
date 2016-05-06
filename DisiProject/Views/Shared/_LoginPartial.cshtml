@@ -1,9 +1,9 @@
 ﻿@if (Request.IsAuthenticated)
 {
-    <li>
-        <a> Bienvenido  @Session["UserFullName"]</a>
-    </li>
-     <li>
-        <a href=@Url.Content("~/Account/LogOff") title="Salir">Cerrar Sesión</a>
-    </li>
+   <li><a href=@Url.Content("~/Account/LogOff")><span class="glyphicon glyphicon-user"></span>Cerrar Sesion</a></li>@*
+    <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+               
+  
+    <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>*@
 }

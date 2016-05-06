@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using DisiProject.AddModelError;
 using DisiProject.Models;
+using DisiProject.Models.PortalClientes;
 
 namespace DisiProject.Datos
 {
@@ -163,6 +165,95 @@ namespace DisiProject.Datos
             registro.password = encriptado;
             registro.bloqueado = false;
             _db.SaveChanges();
+        }
+
+
+
+
+        //cambios
+        //public void InsertPdf(byte[] contenido, string id)
+        //{
+        //    var documento = _db.Facturas.SingleOrDefault(w => w.Uuid == id && w.Pdf == null);
+
+        //    if (documento != null)
+        //    {
+        //        documento.Pdf = contenido;
+        //        _db.SaveChanges();
+        //    }
+        //    else
+        //    {
+        //        Facturas inserta = new Facturas
+        //        {
+        //            Uuid = id,
+        //            Pdf = contenido
+        //        };
+        //       // _db.Facturas.InsertOnSubmit(inserta);
+        //        _db.SaveChanges();
+        //    }
+
+
+        //}
+
+
+        //public void InsertXml(byte[] contenido, string id)
+        //{
+        //    var documento = _db.Facturas.SingleOrDefault(w => w.Uuid == id && w.Xml == null);
+
+        //    if (documento != null)
+        //    {
+        //        documento.Xml = contenido;
+        //        _db.SaveChanges();
+        //    }
+        //    else
+        //    {
+        //        Facturas inserta = new Facturas
+        //        {
+        //            Uuid = id,
+        //            Xml = contenido
+        //        };
+        //       // _db.Facturas.InsertOnSubmit(inserta);
+        //        _db.SaveChanges();
+        //    }
+
+
+        //}
+
+        public Boolean ValidaXml(string uuid)
+        {
+            var validacion = _db.Facturas.FirstOrDefault(a => a.Uuid.Equals(uuid) && a.Xml != null);
+            return validacion != null;
+        }
+
+        public Boolean ValidaPdf(string uuid)
+        {
+            var validacion = _db.Facturas.FirstOrDefault(a => a.Uuid.Equals(uuid) && a.Pdf != null);
+            return validacion != null;
+        }
+
+
+
+
+        public void EliminaPdf(string uuid)
+        {
+            var deleteOrderDetails =
+                from details in _db.Facturas
+                where details.Uuid == uuid
+                select details;
+
+            foreach (var detail in deleteOrderDetails)
+            {
+                _db.Facturas.Remove(detail);
+            }
+
+            try
+            {
+                _db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+
+            }
         }
     }
 }

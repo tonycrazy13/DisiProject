@@ -1,8 +1,6 @@
 ﻿@if (Request.IsAuthenticated)
 {
 
-    <li>
-        <a href=@Url.Content("~/Account/LogOff") title="Salir">Cerrar Sesión</a>
-    </li>
+    <a class="brand right"> Bienvenido  @Session["UserFullName"]</a>
     
 }

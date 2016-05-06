@@ -1,5 +1,4 @@
-﻿using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
 namespace DisiProject
 {
@@ -37,7 +36,7 @@ namespace DisiProject
                         "~/Content/themes/base/jquery.ui.tabs.css",
                         "~/Content/themes/base/jquery.ui.datepicker.css",
                         "~/Content/themes/base/jquery.ui.progressbar.css",
-                        "~/Content/ladda/ladda-themeless.min.css"));
+                        "~/Content/themes/base/jquery.ui.theme.css"));
 
 
 
@@ -45,20 +44,25 @@ namespace DisiProject
             bundles.Add(new ScriptBundle("~/js").Include(
              "~/Scripts/jquery-{version}.js",
              "~/Scripts/jquery-migrate-{version}.js",
-             "~/Scripts/bootstrap.js",
+             "~/Scripts/bootstrap.min.js",
              "~/Scripts/jquery.validate.js",
              "~/scripts/jquery.validate.unobtrusive.js",
-             "~/Scripts/jquery.validate.unobtrusive-custom-for-bootstrap.js",
-             "~/Scripts/ladda/spin.min.js",
-             "~/Scripts/ladda.min.js"
+             "~/Scripts/jquery.validate.unobtrusive-custom-for-bootstrap.js"
              ));
 
             bundles.Add(new StyleBundle("~/content/css").Include(
-                "~/Content/bootstrap.css",
-                "~/Content/body.css",
-                "~/Content/bootstrap-responsive.css",
-                "~/Content/bootstrap-mvc-validation.css"
+                "~/Content/bootstrap.min.css"
+
                 ));
+
+
+
+            bundles.Add(new ScriptBundle("~/Scripts/datatables").Include(
+                "~/Scripts/jquery.dataTables.js",
+                "~/Scripts/dataTables.bootstrap.js"));
+
+            bundles.Add(new StyleBundle("~/Content/datatables").Include(
+                "~/Content/dataTables.bootstrap.css"));
         }
     }
 }

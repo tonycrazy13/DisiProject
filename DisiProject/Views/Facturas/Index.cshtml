@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "Facturas";
+
+}
+
+  @using (Html.BeginForm())
+  {
+      <div class="container kv-main">
+    <div class="page-header">
+        <h1>Factura <small>Carga de Archivos XML y PDF</small>
+        </h1>
+    </div>
+
+       <hr>
+        <div class="form-group">
+            <input id="file-5" class="file" type="file" name="file" multiple data-preview-file-type="any" data-upload-url="#">
+        </div>
+   
+
+    <hr>
+    <br>
+</div>
+  }
+
+<script>
+   
+    $("#file-5").fileinput({
+        uploadUrl: '@Url.Action("Index", "Facturas") ', // you must set a valid URL here else you will get an error
+        allowedFileExtensions : ['jpg', 'png','pdf'],
+        overwriteInitial: false,
+        maxFileSize: 1000,
+        maxFilesNum: 10,
+       // allowedFileTypes: ['jpg', 'png', 'pdf'],
+        slugCallback: function(filename) {
+            return filename.replace('(', '_').replace(']', '_');
+        }
+	});
+   
+	</script>

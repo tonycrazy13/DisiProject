@@ -1,0 +1,53 @@
+﻿@if (Request.IsAuthenticated)
+{
+    <li><a href="~/PortalClientes"><span>Escritorio</span></a></li>
+    
+      <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        Facturas <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="~/Facturas/"><span>Cargar Facturas</span></a></li>
+                       <li><a href="~/Facturas/Estatus"><span>Estatus de Factura </span></a></li>
+                       @* <li><a href="#">Acción #3</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Acción #4</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Acción #5</a></li>*@
+                    </ul>
+                </li>
+
+    <li><a href="~/PortalClientes/Credito"><span>Credito</span></a></li>
+    <li><a href="~/PortalClientes/Pendientes"><span>Pendientes por Firmar</span></a></li>
+    <li><a href="~/PortalClientes/Saldos"><span>Saldos</span></a></li>
+    <li>
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            Reportes<b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a href="~/Reportes/SaldosCrEditos"><span>Saldos por tipo de créditos</span></a></li>
+            <li><a href="~/Reportes/DocumentosPorVencer"><span>Documentos cedidos por vencer</span></a></li>
+            <li><a href="~/Reportes/SaldosVencidos"><span>Documentos cedidos vencidos</span></a></li>
+        </ul>
+    </li>
+    <li><a href="~/PortalClientes/FacturasDisi"><span>Facturas Emitidas DISI</span></a></li>
+    
+              
+ 
+   
+  
+ <script>
+     $('.menu li a').click(function (e) {
+         var $this = $(this);
+         if (!$this.hasClass('active')) {
+             $this.addClass('active');
+         }
+         e.preventDefault();
+     });
+
+</script>
+ 
+    
+    
+
+}

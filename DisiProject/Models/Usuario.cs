@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Linq;
 using System.Linq;
 using System.Web;
+using DisiProject.Models.PortalClientes;
 
 namespace DisiProject.Models
 {
-    
-    [Table("USUARIOS")]
+
+    //[Table("USUARIOS")]
     public class Usuario
     {
+        [Key]
         [Column("ID_USUARIO")]
         public int id { get; set; }
         [Column("ID_AREA")]
@@ -32,8 +35,9 @@ namespace DisiProject.Models
         [Column("FECHA_BLOQUEADO")]
         public DateTime fechaBloqueado { get; set; }
 
-        [ForeignKey("IdArea")]
-        public virtual Area Area { get; set; }
+        //public virtual ICollection<Facturas> Facturas { get; set; }
+        //[ForeignKey("IdArea")]
+        //public virtual Area Area { get; set; }
         //[ForeignKey("IdEmpleado")]
         //public virtual Empleado Empleado { get; set; }
     }
